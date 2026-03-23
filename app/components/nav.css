@@ -1,0 +1,255 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-onest), sans-serif;
+}
+
+/* ── Shell: nav bar ─────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.nav-logo,
+.nav-toggler {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.nav-logo span {
+  font-family: 'Secondary';
+  font-size: 2rem;
+  letter-spacing: 0.1vw;
+  text-transform: uppercase;
+}
+
+.nav-logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Toggler ────────────────────────────────────────────── */
+.nav-toggler {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-toggler span {
+  width: 40px;
+  height: 2px;
+  background-color: #ffffff;
+  transition: all 0.4s ease;
+}
+
+.nav-toggler.open span:first-child {
+  transform: translateY(3.5px) rotate(45deg) scaleX(0.75);
+}
+
+.nav-toggler.open span:nth-child(2) {
+  transform: translateY(-3.5px) rotate(-45deg) scaleX(0.75);
+}
+
+/* ── Nav overlay shell ──────────────────────────────────── */
+.nav-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.nav-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.nav-bg:nth-child(1) { background-color: #1e80cf; }
+.nav-bg:nth-child(2) { background-color: #d6ebfc; }
+.nav-bg:nth-child(3) { background-color: #249afa; }
+.nav-bg:nth-child(4) { background-color: #0068c9; }
+
+/* ── Nav items panel ────────────────────────────────────── */
+.nav-items {
+  height: 100svh;
+  background-color: #0086f3;
+  clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+  will-change: clip-path;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+}
+
+@media (min-width: 768px) {
+  .nav-items {
+    flex-direction: row;
+  }
+}
+
+/* ── Left column ────────────────────────────────────────── */
+.nav-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+/* ── Primary links ──────────────────────────────────────── */
+.nav-primary-link {
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* ── Mobile socials — shown only on mobile ──────────────── */
+.nav-socials-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .nav-socials-mobile {
+    display: none;
+  }
+}
+
+/* ── Right column — hidden on mobile, shown on desktop ─── */
+.nav-right {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+/* ── Desktop socials ────────────────────────────────────── */
+.nav-socials-desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-end;
+}
+
+/* ── Social link shared ─────────────────────────────────── */
+.nav-social-link {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.nav-socials-mobile .nav-social-link {
+  font-size: 0.95rem;
+}
+
+.nav-socials-desktop .nav-social-link {
+  font-size: clamp(0.85rem, 1.8vw, 1.2rem);
+}
+
+/* ── Arrow icon ─────────────────────────────────────────── */
+.arrow-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35em;
+  height: 1.35em;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  font-size: 0.7em;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── Decorative SADIA ───────────────────────────────────── */
+.nav-sadia {
+  font-family: var(--font-oi), serif;
+  left: 628px;
+top: 811px;
+  font-size: clamp(4rem, 11vw, 9.5rem);
+  color: #fff;
+  line-height: 1;
+  
+letter-spacing: 0.05em; 
+  user-select: none;
+  white-space: nowrap;
+  margin-top: auto;
+  align-self: flex-end;
+  margin-right: -3rem;
+  margin-bottom: -0.6em;
+}
+
+
+
+
+/* ── Reveal wrapper ─────────────────────────────────────── */
+.link-reveal-wrap {
+  overflow: hidden;
+}
+
+.nav-link-inner {
+  will-change: transform;
+}
+
+/* ── Rolling link ───────────────────────────────────────── */
+.rolling-link {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.roll-top,
+.roll-bottom {
+  display: block;
+  will-change: transform;
+}
+
+.roll-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
