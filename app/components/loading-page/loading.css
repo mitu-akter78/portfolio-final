@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html.loading,
+html.loading body {
+  overflow: hidden;
+  height: 100%;
+}
+
+:root {
+  --counter-height: 100px;
+}
+
+.pre-loader-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #e75d00;
+  overflow: hidden;
+}
+
+.pre-loader {
+  width: 100%;
+  height: 100%;
+  padding: 2em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 0.5em;
+  position: relative;
+  z-index: 2;
+}
+
+.pre-loader p {
+  width: max-content;
+  text-transform: uppercase;
+  font-family: "Timmons NY", "Arial Narrow", Arial, sans-serif;
+  font-size: 60px;
+  line-height: 60px;
+  color: #ffffff;
+}
+
+.counter {
+  height: var(--counter-height);
+  display: flex;
+  font-family: "Timmons NY", "Arial Narrow", Arial, sans-serif;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 150px;
+  color: #ffffff;
+  clip-path: polygon(0 0, 100% 0, 100% var(--counter-height), 0 var(--counter-height));
+}
+
+.digit-1,
+.digit-2,
+.digit-3,
+.digit-4 {
+  position: relative;
+  top: -15px;
+}
+
+.offset {
+  position: relative;
+  right: -7.5px;
+}
+
+.progress-bar {
+  position: relative;
+  top: -15px;
+  width: 0%;
+  height: 4px;
+  background: #ffffff;
+}
+
+/* ── Wipe panels ─────────────────────────────────────────── */
+.loader-wipe-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  transform: scaleX(0);
+  transform-origin: right;
+  will-change: transform;
+}
+
+/* ── Global page styles ──────────────────────────────────── */
+h1 {
+  text-transform: uppercase;
+  /* FIX #8 — fallback for "PP Neue World" */
+  font-family: "PP Neue World", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 20vw;
+  font-weight: 200;
+  color: #ffffff;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+h1 span {
+  position: relative;
+  top: 400px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* FIX #9 — update the variable; height and clip-path both follow */
+  :root {
+    --counter-height: 70px;
+  }
+
+  .pre-loader {
+    padding: 1em;
+    gap: 0.5em;
+  }
+
+  .counter {
+    font-size: 70px;
+  }
+
+  .pre-loader p {
+    font-size: 40px;
+    line-height: 64px;
+  }
+
+  .offset {
+    position: relative;
+    right: -5px;
+  }
+}

@@ -1,15 +1,24 @@
-import Hero from "./components/hero";
-// import About from "./components/about";
-import SkillsCards from "./components/skills";
-import Projects from "./components/projects";
+"use client";
 
-export default function Home() {
+import { useState } from 'react'
+import Loading from './components/loading-page/loading'
+import Nav from './components/nav/nav'
+import Hero from './components/hero/hero'
+import Skills from './components/skills/skills'
+import Projects from './components/projects/projects'
+import About from './components/about/about'
+
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <main>
+    <>
+      {isLoading && <Loading onComplete={() => setIsLoading(false)} />}
+      <Nav />
       <Hero />
-      {/* <About /> */}
-      <SkillsCards />
+      <About />
+      <Skills />
       <Projects />
-    </main>
+    </>
   );
 }
