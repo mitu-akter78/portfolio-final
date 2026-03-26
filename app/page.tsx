@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react'
-import Loading from './components/loading-page/loading'
+// import Loading from './components/loading-page/loading'
 import Nav from './components/nav/nav'
 import Hero from './components/hero/hero'
 import Skills from './components/skills/skills'
@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <>
-      {isLoading && <Loading onComplete={() => setIsLoading(false)} />}
+      {/* {isLoading && <Loading onComplete={() => setIsLoading(false)} />} */}
       <Nav />
       <Hero />
       <About />

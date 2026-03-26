@@ -401,14 +401,14 @@ class Y extends MeshPhysicalMaterial {
 // ─── Default config ───────────────────────────────────────────────────────────
 
 const DefaultConfig = {
-  count: 900,
+  count: 320,
   colors: [0xff2d6f, 0xf5a623, 0x4a90e2, 0x50e3c2, 0xb388ff, 0xff6b6b],
   ambientColor: 0xffffff,
-  ambientIntensity: 1,
-  lightIntensity: 100,
-  materialParams: { metalness: 0.5, roughness: 0.5, clearcoat: 1, clearcoatRoughness: 0.15 },
-  minSize: 0.5, maxSize: 1.0, size0: 1,
-  gravity: 0.4, friction: 0.9975, wallBounce: 0.95, maxVelocity: 0.15,
+  ambientIntensity: 0,
+  lightIntensity: 4,
+  materialParams: { metalness: 0, roughness: 0, clearcoat: 1, clearcoatRoughness: 0 },
+  minSize: 0.4, maxSize: 0.6, size0: 1,
+  gravity: 0.5, friction: 0.9975, wallBounce: 0.95, maxVelocity: 0.15,
   maxX: 5, maxY: 5, maxZ: 2,
   controlSphere0: false, followCursor: true,
 };
@@ -660,7 +660,7 @@ interface ShapesPitProps {
   [key: string]: any;
 }
 
-const ShapesPit: React.FC<ShapesPitProps> = ({ className = '', followCursor = true, count = 600, ...props }) => {
+const ShapesPit: React.FC<ShapesPitProps> = ({ className = '', followCursor = true, count = 320, ...props }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
