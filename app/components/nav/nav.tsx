@@ -1,39 +1,32 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import "./nav.css";
-
-gsap.registerPlugin(SplitText);
 
 /* ─────────────────────────────────────────────
    RollingLink
 ───────────────────────────────────────────── */
-interface RollingLinkProps {
-  href: string;
-  children: ReactNode;
-  className?: string;
-}
-
-function RollingLink({ href, children, className = "" }: RollingLinkProps) {
+function RollingLink({ href, children, className = "" }: { href: string, children: React.ReactNode, className?: string }) {
   const ref = useRef<HTMLAnchorElement>(null);
 
   const handleMouseEnter = () => {
-    const top = ref.current!.querySelector(".roll-top");
-    const bottom = ref.current!.querySelector(".roll-bottom");
+    if (!ref.current) return;
+    const top = ref.current.querySelector(".roll-top");
+    const bottom = ref.current.querySelector(".roll-bottom");
     gsap.to(top, { y: "-110%", duration: 0.5, ease: "power3.inOut" });
     gsap.fromTo(bottom, { y: "110%" }, { y: "0%", duration: 0.5, ease: "power3.inOut" });
   };
 
   const handleMouseLeave = () => {
-    const top = ref.current!.querySelector(".roll-top");
-    const bottom = ref.current!.querySelector(".roll-bottom");
+    if (!ref.current) return;
+    const top = ref.current.querySelector(".roll-top");
+    const bottom = ref.current.querySelector(".roll-bottom");
     gsap.to(top, { y: "0%", duration: 0.5, ease: "power3.inOut" });
     gsap.to(bottom, { y: "110%", duration: 0.5, ease: "power3.inOut" });
   };
 
-   return (
+  return (
     <a
       ref={ref}
       href={href}
@@ -49,10 +42,6 @@ function RollingLink({ href, children, className = "" }: RollingLinkProps) {
   );
 }
 
-
-
-
-
 /* ─────────────────────────────────────────────
    Arrow icon
 ───────────────────────────────────────────── */
@@ -64,13 +53,7 @@ function ArrowIcon() {
    Data
 ───────────────────────────────────────────── */
 const PRIMARY_LINKS = ["Home", "About", "Skills", "Projects", "Contact"];
-
-interface SocialLink {
-  label: string;
-  href: string;
-}
-
-const SOCIAL_LINKS: SocialLink[] = [
+const SOCIAL_LINKS = [
   { label: "Github", href: "#" },
   { label: "Linkdin", href: "#" },
   { label: "Fiver", href: "#" },
@@ -81,10 +64,12 @@ const SOCIAL_LINKS: SocialLink[] = [
 ───────────────────────────────────────────── */
 export default function Nav() {
   useEffect(() => {
-    const navToggler = document.querySelector(".nav-toggler")!;
+    const navToggler = document.querySelector(".nav-toggler");
     const navBgs = document.querySelectorAll(".nav-bg");
     let isMenuOpen = false;
     let isAnimating = false;
+
+    if (!navToggler) return;
 
     const tl = gsap.timeline({
       paused: true,

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Fragment } from "react";
 import gsap from "gsap";
 import Matter from "matter-js";
 
@@ -462,8 +462,10 @@ function Timeline() {
       }} />
 
       {CARDS.map((card, i) => (
-        <>
-          <div key={card.id} style={{ width: "260px", display: "flex", justifyContent: "center", position: "relative", zIndex: 1, flexShrink: 0 }}>
+        // FIX: key belongs on the outermost element returned from .map().
+        // Shorthand <> can't take props, so use <Fragment key={...}> instead.
+        <Fragment key={card.id}>
+          <div style={{ width: "260px", display: "flex", justifyContent: "center", position: "relative", zIndex: 1, flexShrink: 0 }}>
             <div style={{
               width:      "8px",
               height:     "8px",
@@ -473,9 +475,9 @@ function Timeline() {
             }} />
           </div>
           {i < CARDS.length - 1 && (
-            <div key={`gap-${card.id}`} style={{ width: "28px", flexShrink: 0 }} />
+            <div style={{ width: "28px", flexShrink: 0 }} />
           )}
-        </>
+        </Fragment>
       ))}
     </div>
   );

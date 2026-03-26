@@ -1,50 +1,251 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { FaArrowLeft, FaArrowRight, FaReact } from "react-icons/fa";
+import { SiTailwindcss, SiTypescript, SiNextdotjs, SiFramer, SiNodedotjs, SiGraphql, SiVercel, SiPrisma, SiThreedotjs, SiWebgl, SiFirebase, SiStripe } from "react-icons/si";
+import { motion, AnimatePresence } from "framer-motion";
 import "./project.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface CardData {
-  id: string;
-  label: string;
-  title: string;
-  img: string;
-}
-
-const cardData: CardData[] = [
+const cardData = [
   {
     id: "card-1",
-    label: "Quiet Control",
     title: "Signal Drift",
-    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+    description: "A comprehensive platform for monitoring and analyzing signal drift in real-time. Built with modern web technologies for maximum performance.",
+    techStack: [FaReact, SiTailwindcss, SiTypescript, SiNextdotjs, SiNodedotjs, SiGraphql],
+    images: [
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop",
+    ]
   },
   {
     id: "card-2",
-    label: "Soft Noise",
     title: "Phase Shift",
-    img: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=800&auto=format&fit=crop",
+    description: "Advanced analytics dashboard for tracking phase shifts across multiple data streams. Features interactive visualizations and real-time updates.",
+    techStack: [SiNextdotjs, SiTailwindcss, SiFramer, SiVercel, SiPrisma, SiTypescript],
+    images: [
+      "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&auto=format&fit=crop",
+    ]
   },
   {
     id: "card-3",
-    label: "Dark Edge",
     title: "Null Space",
-    img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "card-4",
-    label: "Raw Form",
-    title: "Dead Zone",
-    img: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&auto=format&fit=crop",
-  },
+    description: "An immersive digital experience exploring the concept of null space. Combines stunning visuals with cutting-edge web performance.",
+    techStack: [FaReact, SiTypescript, SiFramer, SiThreedotjs, SiWebgl, SiTailwindcss],
+    images: [
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+    ]
+  }
 ];
+
+function calculateGap(width: number) {
+  const minWidth = 1024;
+  const maxWidth = 1456;
+  const minGap = 60;
+  const maxGap = 86;
+  if (width <= minWidth) return minGap;
+  if (width >= maxWidth)
+    return Math.max(minGap, maxGap + 0.06018 * (width - maxWidth));
+  return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth));
+}
+
+const CardContent = ({ data }: { data: typeof cardData[0] }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [hoverPrev, setHoverPrev] = useState(false);
+  const [hoverNext, setHoverNext] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(1200);
+
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const imagesLength = data.images.length;
+
+  useEffect(() => {
+    function handleResize() {
+      if (imageContainerRef.current) {
+        setContainerWidth(imageContainerRef.current.offsetWidth);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    autoplayIntervalRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % imagesLength);
+    }, 5000);
+    return () => {
+      if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+    };
+  }, [imagesLength]);
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % imagesLength);
+    if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+  }, [imagesLength]);
+
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + imagesLength) % imagesLength);
+    if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+  }, [imagesLength]);
+
+  function getImageStyle(index: number): React.CSSProperties {
+    const gap = calculateGap(containerWidth);
+    const maxStickUp = gap * 0.8;
+    const isActive = index === activeIndex;
+    const isLeft = (activeIndex - 1 + imagesLength) % imagesLength === index;
+    const isRight = (activeIndex + 1) % imagesLength === index;
+    
+    if (isActive) {
+      return {
+        zIndex: 3,
+        opacity: 1,
+        pointerEvents: "auto",
+        transform: `translateX(0px) translateY(0px) scale(1) rotateY(0deg)`,
+        transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+      };
+    }
+    if (isLeft) {
+      return {
+        zIndex: 2,
+        opacity: 1,
+        pointerEvents: "auto",
+        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(15deg)`,
+        transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+      };
+    }
+    if (isRight) {
+      return {
+        zIndex: 2,
+        opacity: 1,
+        pointerEvents: "auto",
+        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(-15deg)`,
+        transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+      };
+    }
+    return {
+      zIndex: 1,
+      opacity: 0,
+      pointerEvents: "none",
+      transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+    };
+  }
+
+  const quoteVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 },
+  };
+
+  return (
+    <>
+      <div className="col flex flex-col justify-center md:justify-between p-0 md:p-4 h-full gap-4 md:gap-0">
+        <div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-8">{data.title}</h1>
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              variants={quoteVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <motion.p
+                className="text-sm sm:text-base lg:text-lg opacity-90 line-clamp-4 md:line-clamp-none max-w-md font-sans normal-case"
+              >
+                {data.description.split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{
+                      filter: "blur(10px)",
+                      opacity: 0,
+                      y: 5,
+                    }}
+                    animate={{
+                      filter: "blur(0px)",
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 0.22,
+                      ease: "easeInOut",
+                      delay: 0.025 * i,
+                    }}
+                    style={{ display: "inline-block" }}
+                  >
+                    {word}&nbsp;
+                  </motion.span>
+                ))}
+              </motion.p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="mt-4 md:mt-8">
+          <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-70 mb-2 md:mb-3 font-mono">Tech Stack</p>
+          <div className="flex flex-wrap gap-3 md:gap-4 items-center">
+            {data.techStack.map((Icon, idx) => (
+              <motion.div
+                key={idx}
+                custom={idx}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.5, y: 10 },
+                  visible: (i) => ({
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: { duration: 0.4, delay: 0.2 + i * 0.1, type: "spring", stiffness: 120 }
+                  }),
+                  hover: {
+                    scale: 1.2,
+                    rotate: 5,
+                    transition: { duration: 0.2 }
+                  }
+                }}
+                className="cursor-pointer"
+              >
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="col relative h-full flex flex-col justify-center p-0 md:p-4">
+        <div className="relative w-full h-40 sm:h-48 md:h-64 lg:h-80 perspective-[1000px] mt-2 md:mt-8" ref={imageContainerRef}>
+          {data.images.map((src, index) => (
+            <img
+              key={src}
+              src={src}
+              alt={`${data.title} ${index + 1}`}
+              className="absolute w-full h-full object-cover rounded-xl md:rounded-2xl shadow-2xl"
+              style={getImageStyle(index)}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default function Projects() {
   const stickyRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<HTMLDivElement[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -124,15 +325,9 @@ export default function Projects() {
             key={card.id}
             id={card.id}
             className="card"
-            ref={(el) => (cardRefs.current[i] = el!)}
+            ref={(el) => { cardRefs.current[i] = el; }}
           >
-            <div className="col">
-              <p>{card.label}</p>
-              <h1>{card.title}</h1>
-            </div>
-            <div className="col">
-              <img src={card.img} alt={card.title} />
-            </div>
+            <CardContent data={card} />
           </div>
         ))}
       </section>

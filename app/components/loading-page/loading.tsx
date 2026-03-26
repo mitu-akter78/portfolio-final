@@ -26,6 +26,10 @@ interface LoadingProps {
   onComplete?: () => void;
 }
 
+// ── Static digit data defined outside JSX to avoid key-prop issues ────────────
+const DIGIT_2_NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const DIGIT_3_INITIAL_NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 export default function Loading({ onComplete }: LoadingProps) {
   const shellRef = useRef<HTMLDivElement>(null);
   const digit1Ref = useRef<HTMLDivElement>(null);
@@ -129,16 +133,20 @@ export default function Loading({ onComplete }: LoadingProps) {
           );
         }
 
-        wipeTl.to(
-          "h1 span",
-          {
-            top: "0px",
-            stagger: TIMING.h1Stagger,
-            duration: TIMING.h1Duration,
-            ease: "power3.out",
-          },
-          "<",
-        );
+        // ── FIX: guard against h1 span not yet in DOM ─────────────────────────
+        const h1Spans = document.querySelectorAll("h1 span");
+        if (h1Spans.length > 0) {
+          wipeTl.to(
+            h1Spans,
+            {
+              top: "0px",
+              stagger: TIMING.h1Stagger,
+              duration: TIMING.h1Duration,
+              ease: "power3.out",
+            },
+            "<",
+          );
+        }
 
         // ── Progress bar ──────────────────────────────────────────────
         if (progressBarRef.current) {
@@ -182,35 +190,34 @@ export default function Loading({ onComplete }: LoadingProps) {
         <div className="pre-loader">
           <p className="loading-text">Loading</p>
           <div className="counter">
+            {/* digit-1: static two items, no list key needed */}
             <div className="digit-1" ref={digit1Ref}>
               <div className="num">0</div>
               <div className="num offset">1</div>
             </div>
+
+            {/* digit-2: FIX — render from array with explicit keys */}
             <div className="digit-2" ref={digit2Ref}>
-              <div className="num">0</div>
-              <div className="num offset">1</div>
-              <div className="num">2</div>
-              <div className="num">3</div>
-              <div className="num">4</div>
-              <div className="num">5</div>
-              <div className="num">6</div>
-              <div className="num">7</div>
-              <div className="num">8</div>
-              <div className="num">9</div>
-              <div className="num">0</div>
+              {DIGIT_2_NUMS.map((n, i) => (
+                <div
+                  key={`d2-${i}`}
+                  className={i === 1 ? "num offset" : "num"}
+                >
+                  {n}
+                </div>
+              ))}
             </div>
+
+            {/* digit-3: FIX — render from array with explicit keys;
+                extra rows are appended imperatively in useEffect */}
             <div className="digit-3" ref={digit3Ref}>
-              <div className="num">0</div>
-              <div className="num">1</div>
-              <div className="num">2</div>
-              <div className="num">3</div>
-              <div className="num">4</div>
-              <div className="num">5</div>
-              <div className="num">6</div>
-              <div className="num">7</div>
-              <div className="num">8</div>
-              <div className="num">9</div>
+              {DIGIT_3_INITIAL_NUMS.map((n, i) => (
+                <div key={`d3-${i}`} className="num">
+                  {n}
+                </div>
+              ))}
             </div>
+
             <div className="digit-4">%</div>
           </div>
           <div className="progress-bar" ref={progressBarRef}></div>

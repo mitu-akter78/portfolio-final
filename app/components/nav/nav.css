@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Oi&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +7,7 @@
 }
 
 body {
-  font-family: var(--font-onest), sans-serif;
+  font-family: "Onest", sans-serif;
 }
 
 /* ── Shell: nav bar ─────────────────────────────────────── */
@@ -18,7 +20,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  z-index: 9999;
+  z-index: 1000;
   mix-blend-mode: difference;
   color: #fff;
 }
@@ -75,7 +77,7 @@ nav {
   width: 100%;
   height: 100svh;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 999;
 }
 
 .nav-bg {
@@ -124,7 +126,7 @@ nav {
 
 /* ── Primary links ──────────────────────────────────────── */
 .nav-primary-link {
-  font-family: var(--font-bricolage), sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   font-weight: 800;
   line-height: 1.05;
@@ -170,7 +172,7 @@ nav {
 
 /* ── Social link shared ─────────────────────────────────── */
 .nav-social-link {
-  font-family: var(--font-bricolage), sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -203,7 +205,7 @@ nav {
 
 /* ── Decorative SADIA ───────────────────────────────────── */
 .nav-sadia {
-  font-family: var(--font-oi), serif;
+  font-family: 'Oi', serif;
   left: 628px;
 top: 811px;
   font-size: clamp(4rem, 11vw, 9.5rem);

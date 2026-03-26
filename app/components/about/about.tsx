@@ -7,6 +7,7 @@ import SplitType from "split-type";
 import Lenis from "lenis";
 import "./about.css";
 
+
 export default function DystopianWorld() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
