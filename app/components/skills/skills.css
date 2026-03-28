@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+.card-hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card-hover::before,
+.card-hover::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: lightblue;
+  transition: all 0.5s;
+  z-index: 20;
+  color: black;
+}
+
+.card-hover::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.card-hover::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.card-hover:hover::before,
+.card-hover:hover::after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.card-hover:hover::after {
+  content: "HELLO";
+}
