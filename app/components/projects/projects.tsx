@@ -315,9 +315,6 @@ export default function Projects() {
 
   return (
     <>
-      <section className="intro">
-        <h1>Enter the Frame</h1>
-      </section>
 
       <section className="sticky-cards" ref={stickyRef}>
         {cardData.map((card, i) => (
