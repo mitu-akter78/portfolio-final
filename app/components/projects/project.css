@@ -76,7 +76,7 @@ section {
 
 .card .col {
   flex: 1;
-  height: 100%;
+  min-height: 0;
   width: 100%;
 }
 
@@ -88,6 +88,11 @@ section {
 
 .card .col:nth-child(2) {
   border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  flex: 0 0 42%;   /* fixed height slice on mobile (column layout) */
+  min-height: 0;
+  height: 100%;
 }
 
 .card#card-1 {
@@ -111,7 +116,7 @@ section {
 @media (max-width: 1000px) {
   .sticky-cards .card {
     width: calc(100% - 2rem);
-    height: 85%;
+    height: 100%;
     flex-direction: column;
     padding: 1.5rem;
   }
@@ -120,11 +125,11 @@ section {
     width: 100%;
   }
 }
-/* 
-@media (max-width: 600px) {
-  .sticky-cards .card {
-    width: calc(100% - 2rem);
-    height: 85%;
-    flex-direction: column;
-    padding: 1.5rem;
-  } */
+
+@media (min-width: 768px) {
+  .card .col:nth-child(2) {
+    flex: 1;
+    max-height: 100%; /* restore on desktop */
+    height: 100%;
+  }
+}

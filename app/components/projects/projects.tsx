@@ -50,7 +50,7 @@ const cardData = [
 function calculateGap(width: number) {
   const minWidth = 1024;
   const maxWidth = 1456;
-  const minGap = 60;
+  const minGap = 70;
   const maxGap = 86;
   if (width <= minWidth) return minGap;
   if (width >= maxWidth)
@@ -101,11 +101,12 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
 
   function getImageStyle(index: number): React.CSSProperties {
     const gap = calculateGap(containerWidth);
-    const maxStickUp = gap * 0.8;
+    const maxStickUp = gap * 0.2;
     const isActive = index === activeIndex;
     const isLeft = (activeIndex - 1 + imagesLength) % imagesLength === index;
     const isRight = (activeIndex + 1) % imagesLength === index;
-    
+    const isMobile = containerWidth < 768;
+
     if (isActive) {
       return {
         zIndex: 3,
@@ -113,6 +114,7 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
         pointerEvents: "auto",
         transform: `translateX(0px) translateY(0px) scale(1) rotateY(0deg)`,
         transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+        ...(isMobile && { width: "80%", left: "10%" }),
       };
     }
     if (isLeft) {
@@ -120,8 +122,9 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
         zIndex: 2,
         opacity: 1,
         pointerEvents: "auto",
-        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(15deg)`,
+        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(10deg)`,
         transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+        ...(isMobile && { width: "80%", left: "10%" }), 
       };
     }
     if (isRight) {
@@ -129,8 +132,9 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
         zIndex: 2,
         opacity: 1,
         pointerEvents: "auto",
-        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(-15deg)`,
+        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(-10deg)`,
         transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
+        ...(isMobile && { width: "80%", left: "10%" }),
       };
     }
     return {
@@ -226,8 +230,8 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
         </div>
       </div>
 
-      <div className="col relative h-full flex flex-col justify-center p-0 md:p-4">
-        <div className="relative w-full h-40 sm:h-48 md:h-64 lg:h-80 perspective-[1000px] mt-2 md:mt-8" ref={imageContainerRef}>
+      <div className="col relative flex flex-col justify-center p-0 md:p-4">
+        <div className="relative w-full h-full perspective-[1000px]" ref={imageContainerRef}>
           {data.images.map((src, index) => (
             <img
               key={src}
@@ -327,10 +331,6 @@ export default function Projects() {
             <CardContent data={card} />
           </div>
         ))}
-      </section>
-
-      <section className="outro">
-        <h1>Loop Complete</h1>
       </section>
     </>
   );

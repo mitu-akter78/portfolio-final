@@ -1,6 +1,6 @@
 'use client'
 import { motion, Variants } from 'framer-motion';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface ImageRevealProps {
     leftImage: string;
@@ -9,6 +9,16 @@ interface ImageRevealProps {
 }
 
 export default function ImageReveal({ leftImage, middleImage, rightImage }: ImageRevealProps) {
+    
+    const [spread, setSpread] = React.useState(0)
+
+    useEffect(() => {
+        const calculate = () => setSpread(window.innerWidth * 0.20)
+        calculate()                                        // run once on mount
+        window.addEventListener('resize', calculate)       // re-run on resize
+        return () => window.removeEventListener('resize', calculate)  // cleanup
+    }, [])
+    
     const containerVariants: Variants = {
         initial: {
             opacity: 0,
@@ -25,9 +35,9 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const leftImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -8,
-            x: -150,
-            y: 10,
+            rotate: -7,
+            x: -spread,
+            y: -10,
             transition: {
                 type: "spring" as const,
                 stiffness: 120,
@@ -35,8 +45,8 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
             }
         },
         hover: {
-            rotate: 1,
-            x: -160,
+            rotate: -9,
+            x: -spread - 10,
             y: 0,
             transition: {
                 type: "spring" as const,
@@ -49,7 +59,7 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const middleImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 6,
+            rotate: 2,
             x: 0,
             y: 0,
             transition: {
@@ -59,7 +69,7 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
             }
         },
         hover: {
-            rotate: 0,
+            rotate: -1,
             x: 0,
             y: -10,
             transition: {
@@ -73,9 +83,9 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const rightImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -6,
-            x: 200,
-            y: 20,
+            rotate: 10,
+            x: spread,
+            y: 50,
             transition: {
                 type: "spring" as const,
                 stiffness: 120,
@@ -83,8 +93,8 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
             }
         },
         hover: {
-            rotate: 3,
-            x: 200,
+            rotate: 8,
+            x: spread,
             y: 10,
             transition: {
                 type: "spring" as const,
@@ -95,58 +105,68 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     };
 
     return (
+
         <motion.div
-            className="relative flex items-center justify-center w-full max-w-4xl h-[400px] my-12 "
+            className="relative flex items-center justify-center w-full max-w-4xl h-full my-12 "
             variants={containerVariants}
             initial="initial"
             animate="animate"
         >
             {/* Left Image - Lowest z-index */}
             <motion.div
-                className="card-hover w-[220px] h-[320px] absolute origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white"
+                className="card-hover absolute origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white"
                 variants={leftImageVariants}
                 whileHover="hover"
                 animate="animate"
-                style={{ zIndex: 20 }}
+                style={{ zIndex: 30, '--hover-bg': 'linear-gradient(135deg, #f6d365, #fda085)' } as React.CSSProperties}
             >
                 <img
                     src={leftImage}
                     alt="Left image"
                     className="absolute inset-0 object-cover w-full h-full p-2 rounded-2xl z-0"
                 />
-                <span className="relative z-10 text-white drop-shadow-md pointer-events-none">BACKEND</span>
+                <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 z-30 gap-1 pointer-events-none">
+                    <span className="card-label">Design</span>       {/* change per card */}
+                    <span className="card-sublabel">UI · UX</span>   {/* change per card */}
+                </div>
             </motion.div>
 
             {/* Middle Image - Middle z-index */}
             <motion.div
-                className="card-hover w-[220px] h-[320px] absolute origin-bottom-left overflow-hidden rounded-xl shadow-lg bg-white"
+                className="card-hover absolute origin-bottom-left overflow-hidden rounded-xl shadow-lg bg-white"
                 variants={middleImageVariants}
                 whileHover="hover"
                 animate="animate"
-                style={{ zIndex: 20 }}
+                style={{ zIndex: 20, '--hover-bg': 'linear-gradient(135deg, #5ee7df, #b490ca)' } as React.CSSProperties}
             >
                 <img
                     src={middleImage}
                     alt="Middle image"
                     className="absolute inset-0 object-cover w-full h-full p-2 rounded-2xl z-0"
                 />
-                <span className="relative z-10 text-white drop-shadow-md pointer-events-none">FRONTEND</span>
+                <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 z-30 gap-1 pointer-events-none">
+                    <span className="card-label">Design</span>       {/* change per card */}
+                    <span className="card-sublabel">UI · UX</span>   {/* change per card */}
+                </div>
             </motion.div>
 
             {/* Right Image - Highest z-index */}
             <motion.div
-                className="card-hover w-[220px] h-[320px] absolute origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white"
+                className="card-hover absolute origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white"
                 variants={rightImageVariants}
                 whileHover="hover"
                 animate="animate"
-                style={{ zIndex: 10 }}
+                style={{ zIndex: 10, '--hover-bg': 'linear-gradient(135deg, #96fbc4, #f9f586)' } as React.CSSProperties}
             >
                 <img
                     src={rightImage}
                     alt="Right image"
                     className="absolute inset-0 object-cover w-full h-full p-2 rounded-2xl z-0"
                 />
-                <span className="relative z-10 text-white drop-shadow-md pointer-events-none">UI/UX</span>
+                <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 z-30 gap-1 pointer-events-none">
+                    <span className="card-label">Design</span>       {/* change per card */}
+                    <span className="card-sublabel">UI · UX</span>   {/* change per card */}
+                </div>
             </motion.div>
         </motion.div>
     );

@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 .card-hover {
+  width: clamp(200px, 25vw, 320px);
+  height: clamp(320px, 40vw, 520px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +22,7 @@
   justify-content: center;
   font-size: 25px;
   font-weight: bold;
-  background-color: lightblue;
+  background: var(--hover-bg, rgb(7, 181, 245));
   transition: all 0.5s;
   z-index: 20;
   color: black;
@@ -46,6 +48,25 @@
   transition: all 0.5s;
 }
 
-.card-hover:hover::after {
-  content: "HELLO";
+.card-label {
+  position: relative;
+  z-index: 30;
+  color: transparent;
+  font-size: 26px;
+  font-weight: 800;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.5s ease 0.15s, color 0.2s ease 0.3s;
+}
+.card-hover:hover .card-label {
+  clip-path: inset(0 0% 0 0);
+  color: #fff;
+}
+.card-sublabel {
+  position: relative; z-index: 30;
+  color: transparent; font-size: 13px; letter-spacing: 0.2em;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s, color 0.2s ease 0.4s;
+}
+.card-hover:hover .card-sublabel {
+  opacity: 1; transform: translateY(0); color: rgba(255,255,255,0.8);
 }
