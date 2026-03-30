@@ -55,9 +55,9 @@ export default function Skillsdemo() {
   }, [])
 
   return (
-    <div ref={sectionRef} className="relative flex flex-col items-center justify-center h-[1000px] bg-gray-50 overflow-visible">
+    <div ref={sectionRef} className="relative flex flex-col items-center justify-center h-[1000px] bg-[radial-gradient(circle_at_center,#99d1ff_5%,#008cff_100%)] border-t-2 border-blue-950 overflow-visible">
       <div className="text-center mb-16">
-        <h2 ref={headingRef} className="absolute top-8 right-12 text-4xl text-top font-bold tracking-tight text-gray-900 sm:text-5xl">
+        <h2 ref={headingRef} className="absolute top-5 right-5 text-6xl sm:text-6xl md:text-8xl text-top font-bold tracking-tight text-gray-900">
           My Skills
         </h2>
       </div>

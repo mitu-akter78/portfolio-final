@@ -35,9 +35,9 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const leftImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -7,
+            rotate: -8,
             x: -spread,
-            y: -10,
+            y: 0,
             transition: {
                 type: "spring" as const,
                 stiffness: 120,
@@ -45,9 +45,9 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
             }
         },
         hover: {
-            rotate: -9,
+            rotate: -8,
             x: -spread - 10,
-            y: 0,
+            y: -15,
             transition: {
                 type: "spring" as const,
                 stiffness: 200,
@@ -59,7 +59,7 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const middleImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 2,
+            rotate: 0,
             x: 0,
             y: 0,
             transition: {
@@ -69,9 +69,9 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
             }
         },
         hover: {
-            rotate: -1,
+            rotate: 0,
             x: 0,
-            y: -10,
+            y: -15,
             transition: {
                 type: "spring" as const,
                 stiffness: 200,
@@ -83,7 +83,7 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const rightImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 10,
+            rotate: 8,
             x: spread,
             y: 50,
             transition: {
@@ -118,7 +118,7 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
                 variants={leftImageVariants}
                 whileHover="hover"
                 animate="animate"
-                style={{ zIndex: 30, '--hover-bg': 'linear-gradient(135deg, #f6d365, #fda085)' } as React.CSSProperties}
+                style={{ zIndex: 10, '--hover-bg': 'linear-gradient(135deg, #f6d365, #fda085)' } as React.CSSProperties}
             >
                 <img
                     src={leftImage}

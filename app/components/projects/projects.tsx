@@ -153,7 +153,7 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
 
   return (
     <>
-      <div className="col flex flex-col justify-center md:justify-between p-0 md:p-4 h-full gap-4 md:gap-0">
+      <div className="col flex flex-col justify-center md:justify-between p-0 md:p-4 h-full gap-4 md:gap-0 ">
         <div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-8">{data.title}</h1>
           
@@ -320,7 +320,7 @@ export default function Projects() {
   return (
     <>
 
-      <section className="sticky-cards" ref={stickyRef}>
+      <section className="sticky-cards border-t-2 border-blue-950" ref={stickyRef}>
         {cardData.map((card, i) => (
           <div
             key={card.id}
