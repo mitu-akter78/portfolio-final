@@ -97,7 +97,10 @@ export default function About() {
 
   return (
     <main
-      className={`w-full bg-[radial-gradient(circle_at_center,#99d1ff_20%,#008cff_100%)] text-slate-900 ${outfit.variable} font-sans overflow-hidden border-t-2 border-blue-950`}
+      className="about-grid-wrapper">    
+    <div className="about-grid-background" />  
+    <div
+    className={`about-content w-full text-slate-900 ${outfit.variable} font-sans overflow-hidden border-t-2 border-blue-950`}
     >
       <div className="heading flex justify-end w-full ">
         <h2
@@ -119,6 +122,7 @@ export default function About() {
           needs, turning your ideas into reality through the power of language
           and logic.
         </h1>
+      </div>
       </div>
     </main>
   );

@@ -124,7 +124,7 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
         pointerEvents: "auto",
         transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(10deg)`,
         transition: "all 0.8s cubic-bezier(.4,2,.3,1)",
-        ...(isMobile && { width: "80%", left: "10%" }), 
+        ...(isMobile && { width: "80%", left: "10%" }),
       };
     }
     if (isRight) {
@@ -156,7 +156,7 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
       <div className="col flex flex-col justify-center md:justify-between p-0 md:p-4 h-full gap-4 md:gap-0 ">
         <div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-8">{data.title}</h1>
-          
+
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -319,19 +319,21 @@ export default function Projects() {
 
   return (
     <>
-
-      <section className="sticky-cards border-t-2 border-blue-950" ref={stickyRef}>
-        {cardData.map((card, i) => (
-          <div
-            key={card.id}
-            id={card.id}
-            className="card"
-            ref={(el) => { cardRefs.current[i] = el; }}
-          >
-            <CardContent data={card} />
-          </div>
-        ))}
-      </section>
+      <div className="project-grid-wrapper">
+        <div className="project-grid-background" />
+        <section className="sticky-cards border-t-2 border-blue-950" ref={stickyRef}>
+          {cardData.map((card, i) => (
+            <div
+              key={card.id}
+              id={card.id}
+              className="card"
+              ref={(el) => { cardRefs.current[i] = el; }}
+            >
+              <CardContent data={card} />
+            </div>
+          ))}
+        </section>
+      </div>
     </>
   );
 }
