@@ -7,12 +7,7 @@
   box-sizing: border-box;
 }
 
-.project-grid-wrapper {
-  min-height: 100%;
-  width: 100%;
-  position: relative;
-  background: radial-gradient(circle at center, #99d1ff 5%, #008cff 100%);
-}
+
 
 .project-grid-background {
   position: absolute;
@@ -71,7 +66,7 @@ section {
 }
 
 .sticky-cards {
-  background-color: transparent;
+  background: radial-gradient(circle at center, #99d1ff 5%, #008cff 100%);
   perspective: 850px;
 }
 
@@ -80,7 +75,7 @@ section {
   top: 50%;
   left: 50%;
   width: 90%;
-  height: 85%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -145,7 +140,7 @@ section {
 @media (max-width: 1000px) {
   .sticky-cards .card {
     width: calc(100% - 2rem);
-    height: 100%;
+    
     flex-direction: column;
     padding: 1.5rem;
   }

@@ -1,0 +1,117 @@
+/* ── ROOT ── */
+.footer-root {
+    width: 100%;
+    height: 20%;
+    overflow: hidden;
+    font-family: "Outfit", sans-serif;
+}
+
+/* ── DARK FOOTER ── */
+.footer-dark {
+    position: relative;
+    background: radial-gradient(circle at center, #99d1ff 5%, #008cff 100%);
+    overflow: hidden;
+}
+
+.footer-meta {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 2.4rem 3rem 1.6rem;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.footer-contact-label {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.01em;
+}
+
+.footer-email {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: -0.01em;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.footer-nav-link {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+}
+
+.footer-nav-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── BIG BRAND TEXT ── */
+.brand-text-wrap {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.brand-text {
+    display: flex;
+    justify-content: center;
+    font-size: clamp(7rem, 97vw, 30rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.8;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    user-select: none;
+    filter: blur(1px);
+}
+
+/* ── BOTTOM BAR ── */
+.footer-bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem 1.5rem;
+}
+
+.footer-copy {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.28);
+    letter-spacing: 0.01em;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-legal-link {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.28);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+}
+
+.footer-legal-link:hover {
+    color: rgba(255, 255, 255, 0.55);
+}

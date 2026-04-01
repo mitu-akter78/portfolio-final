@@ -7,7 +7,7 @@ import Hero from './components/hero/hero'
 import Skillsdemo from './components/skills/skillsdemo'
 import Projects from './components/projects/projects'
 import About from './components/about/about'
-import Footer from './components/footer/footer';
+import Contact from './components/contact/contact'
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ export default function App() {
       <About />
       <Skillsdemo />
       <Projects />
-      <Footer />
+      <Contact />
     </>
   );
 }

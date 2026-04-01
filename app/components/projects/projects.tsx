@@ -276,7 +276,7 @@ export default function Projects() {
     const trigger = ScrollTrigger.create({
       trigger: stickyRef.current,
       start: "top top",
-      end: `+=${window.innerHeight * 8}px`,
+      end: `+=${window.innerHeight * cardData.length}px`,
       pin: true,
       pinSpacing: true,
       scrub: 1,
@@ -319,21 +319,19 @@ export default function Projects() {
 
   return (
     <>
-      <div className="project-grid-wrapper">
+      <section className="sticky-cards border-t-2 border-blue-950" ref={stickyRef}>
         <div className="project-grid-background" />
-        <section className="sticky-cards border-t-2 border-blue-950" ref={stickyRef}>
-          {cardData.map((card, i) => (
-            <div
-              key={card.id}
-              id={card.id}
-              className="card"
-              ref={(el) => { cardRefs.current[i] = el; }}
-            >
-              <CardContent data={card} />
-            </div>
-          ))}
-        </section>
-      </div>
+        {cardData.map((card, i) => (
+          <div
+            key={card.id}
+            id={card.id}
+            className="card"
+            ref={(el) => { cardRefs.current[i] = el; }}
+          >
+            <CardContent data={card} />
+          </div>
+        ))}
+      </section>
     </>
   );
 }
