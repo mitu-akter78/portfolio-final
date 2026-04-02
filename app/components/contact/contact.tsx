@@ -6,6 +6,8 @@ import { Outfit } from "next/font/google";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import "./contact.css";
+import SocialBtn from "../ui/social-btn";
+import ContactBtn from "../ui/contact-btn";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -62,14 +64,8 @@ export default function ContactPage() {
               Together
             </motion.h1>
 
-            <motion.button
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="contact-btn"
-            >
-              Contact me
-            </motion.button>
+            <ContactBtn />
+            
           </motion.div>
 
           <div className="social-block">
@@ -88,11 +84,11 @@ export default function ContactPage() {
               <a href="#" className="social-link">
                 <span className="social-icon">gh</span>
                 <span>GitHub</span>
-              </a>
+              </a><SocialBtn />
             </div>
           </div>
         </div>
-
+        
         <div className="footer-bottom">
           <span className="footer-copy">Copyright &copy; 2025 neurezstudio</span>
           <div className="footer-legal">

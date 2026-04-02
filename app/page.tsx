@@ -4,7 +4,7 @@ import { useState } from 'react'
 // import Loading from './components/loading-page/loading'
 import Nav from './components/nav/nav'
 import Hero from './components/hero/hero'
-import Skillsdemo from './components/skills/skillsdemo'
+import ScrollCards from './components/skillsp/scrollcards'
 import Projects from './components/projects/projects'
 import About from './components/about/about'
 import Contact from './components/contact/contact'
@@ -18,7 +18,7 @@ export default function App() {
       <Nav />
       <Hero />
       <About />
-      <Skillsdemo />
+      <ScrollCards />
       <Projects />
       <Contact />
     </>

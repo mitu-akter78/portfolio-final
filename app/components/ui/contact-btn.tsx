@@ -1,43 +1,259 @@
 import React from 'react'
 
-const ContactBtn = () => {
+const ContactBtn: React.FC = () => {
     return (
         <>
-            <a
-                href="#"
-                className="flex overflow-hidden items-center text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-black text-white shadow hover:bg-black/90 h-9 px-4 py-2 max-w-52 whitespace-pre md:flex group relative w-full justify-center gap-2 rounded-md transition-all duration-300 ease-out hover:ring-2 hover:ring-black hover:ring-offset-2"
-            >
-                <span
-                    className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"
-                ></span>
-                <div className="flex items-center">
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 438.549 438.549">
-                        <path
-                            d="M409.132 114.573c-19.608-33.596-46.205-60.194-79.798-79.8-33.598-19.607-70.277-29.408-110.063-29.408-39.781 0-76.472 9.804-110.063 29.408-33.596 19.605-60.192 46.204-79.8 79.8C9.803 148.168 0 184.854 0 224.63c0 47.78 13.94 90.745 41.827 128.906 27.884 38.164 63.906 64.572 108.063 79.227 5.14.954 8.945.283 11.419-1.996 2.475-2.282 3.711-5.14 3.711-8.562 0-.571-.049-5.708-.144-15.417a2549.81 2549.81 0 01-.144-25.406l-6.567 1.136c-4.187.767-9.469 1.092-15.846 1-6.374-.089-12.991-.757-19.842-1.999-6.854-1.231-13.229-4.086-19.13-8.559-5.898-4.473-10.085-10.328-12.56-17.556l-2.855-6.57c-1.903-4.374-4.899-9.233-8.992-14.559-4.093-5.331-8.232-8.945-12.419-10.848l-1.999-1.431c-1.332-.951-2.568-2.098-3.711-3.429-1.142-1.331-1.997-2.663-2.568-3.997-.572-1.335-.098-2.43 1.427-3.289 1.525-.859 4.281-1.276 8.28-1.276l5.708.853c3.807.763 8.516 3.042 14.133 6.851 5.614 3.806 10.229 8.754 13.846 14.842 4.38 7.806 9.657 13.754 15.846 17.847 6.184 4.093 12.419 6.136 18.699 6.136 6.28 0 11.704-.476 16.274-1.423 4.565-.952 8.848-2.383 12.847-4.285 1.713-12.758 6.377-22.559 13.988-29.41-10.848-1.14-20.601-2.857-29.264-5.14-8.658-2.286-17.605-5.996-26.835-11.14-9.235-5.137-16.896-11.516-22.985-19.126-6.09-7.614-11.088-17.61-14.987-29.979-3.901-12.374-5.852-26.648-5.852-42.826 0-23.035 7.52-42.637 22.557-58.817-7.044-17.318-6.379-36.732 1.997-58.24 5.52-1.715 13.706-.428 24.554 3.853 10.85 4.283 18.794 7.952 23.84 10.994 5.046 3.041 9.089 5.618 12.135 7.708 17.705-4.947 35.976-7.421 54.818-7.421s37.117 2.474 54.823 7.421l10.849-6.849c7.419-4.57 16.18-8.758 26.262-12.565 10.088-3.805 17.802-4.853 23.134-3.138 8.562 21.509 9.325 40.922 2.279 58.24 15.036 16.18 22.559 35.787 22.559 58.817 0 16.178-1.958 30.497-5.853 42.966-3.9 12.471-8.941 22.457-15.125 29.979-6.191 7.521-13.901 13.85"
-                        ></path>
-                    </svg>
-                    <span className="ml-1 text-white">Star on GitHub</span>
-                </div>
-                <div className="ml-2 flex items-center gap-1 text-sm md:flex">
+            <style>{`
+                button {
+                  position: relative;
+                  margin-top: 2.25rem;
+                  margin-left: 1.25rem;
+                  padding: 0.55rem 3.2rem;
+                  background: #fec195;
+                  font-size: clamp(0.8rem, 2.5vw, 1.6rem);
+                  font-weight: 500;
+                  color: #181818;
+                  border: 3px solid #fec195;
+                  border-radius: 8px;
+                  box-shadow: 0 0 0 #fec1958c;
+                  transition: all 0.3s ease-in-out;
+                  cursor: pointer;
+                }
+                .star-1 {
+                  position: absolute;
+                  top: 20%;
+                  left: 20%;
+                  width: 25px;
+                  height: auto;
+                  filter: drop-shadow(0 0 0 #fffdef);
+                  z-index: -5;
+                  transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+                }
+                .star-2 {
+                  position: absolute;
+                  top: 45%;
+                  left: 45%;
+                  width: 15px;
+                  height: auto;
+                  filter: drop-shadow(0 0 0 #fffdef);
+                  z-index: -5;
+                  transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+                }
+                .star-3 {
+                  position: absolute;
+                  top: 40%;
+                  left: 40%;
+                  width: 5px;
+                  height: auto;
+                  filter: drop-shadow(0 0 0 #fffdef);
+                  z-index: -5;
+                  transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+                }
+                .star-4 {
+                  position: absolute;
+                  top: 20%;
+                  left: 40%;
+                  width: 8px;
+                  height: auto;
+                  filter: drop-shadow(0 0 0 #fffdef);
+                  z-index: -5;
+                  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+                }
+                .star-5 {
+                  position: absolute;
+                  top: 25%;
+                  left: 45%;
+                  width: 15px;
+                  height: auto;
+                  filter: drop-shadow(0 0 0 #fffdef);
+                  z-index: -5;
+                  transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
+                }
+                .star-6 {
+                  position: absolute;
+                  top: 5%;
+                  left: 50%;
+                  width: 5px;
+                  height: auto;
+                  filter: drop-shadow(0 0 0 #fffdef);
+                  z-index: -5;
+                  transition: all 0.8s ease;
+                }
+                button:hover {
+                  background: transparent;
+                  color: #fec195;
+                  box-shadow: 0 0 25px #fec1958c;
+                }
+                button:hover .star-1 {
+                  position: absolute;
+                  top: -80%;
+                  left: -30%;
+                  width: 25px;
+                  height: auto;
+                  filter: drop-shadow(0 0 10px #fffdef);
+                  z-index: 2;
+                }
+                button:hover .star-2 {
+                  position: absolute;
+                  top: -25%;
+                  left: 10%;
+                  width: 15px;
+                  height: auto;
+                  filter: drop-shadow(0 0 10px #fffdef);
+                  z-index: 2;
+                }
+                button:hover .star-3 {
+                  position: absolute;
+                  top: 55%;
+                  left: 25%;
+                  width: 5px;
+                  height: auto;
+                  filter: drop-shadow(0 0 10px #fffdef);
+                  z-index: 2;
+                }
+                button:hover .star-4 {
+                  position: absolute;
+                  top: 30%;
+                  left: 80%;
+                  width: 8px;
+                  height: auto;
+                  filter: drop-shadow(0 0 10px #fffdef);
+                  z-index: 2;
+                }
+                button:hover .star-5 {
+                  position: absolute;
+                  top: 25%;
+                  left: 115%;
+                  width: 15px;
+                  height: auto;
+                  filter: drop-shadow(0 0 10px #fffdef);
+                  z-index: 2;
+                }
+                button:hover .star-6 {
+                  position: absolute;
+                  top: 5%;
+                  left: 60%;
+                  width: 5px;
+                  height: auto;
+                  filter: drop-shadow(0 0 10px #fffdef);
+                  z-index: 2;
+                }
+                .fil0 {
+                  fill: #fffdef;
+                }
+            `}</style>
+
+            <button>
+                Button
+                <div className="star-1">
                     <svg
-                        className="w-4 h-4 text-gray-500 transition-all duration-300 group-hover:text-yellow-300"
-                        data-slot="icon"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
+                        xmlSpace="preserve"
+                        version="1.1"
+                        style={{ shapeRendering: "geometricPrecision", textRendering: "geometricPrecision", imageRendering: "auto", fillRule: "evenodd", clipRule: "evenodd" }}
+                        viewBox="0 0 784.11 815.53"
                     >
-                        <path
-                            clipRule="evenodd"
-                            d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                            fillRule="evenodd"
-                        ></path>
+                        <defs></defs>
+                        <g id="Layer_x0020_1">
+                            <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                            <path
+                                className="fil0"
+                                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            ></path>
+                        </g>
                     </svg>
-                    <span
-                        className="inline-block tabular-nums tracking-wider font-display font-medium text-white"
-                    >6</span>
                 </div>
-            </a>
+                <div className="star-2">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlSpace="preserve"
+                        version="1.1"
+                        style={{ shapeRendering: "geometricPrecision", textRendering: "geometricPrecision", imageRendering: "auto", fillRule: "evenodd", clipRule: "evenodd" }}
+                        viewBox="0 0 784.11 815.53"
+                    >
+                        <defs></defs>
+                        <g id="Layer_x0020_1">
+                            <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                            <path
+                                className="fil0"
+                                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            ></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="star-3">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlSpace="preserve"
+                        version="1.1"
+                        style={{ shapeRendering: "geometricPrecision", textRendering: "geometricPrecision", imageRendering: "auto", fillRule: "evenodd", clipRule: "evenodd" }}
+                        viewBox="0 0 784.11 815.53"
+                    >
+                        <defs></defs>
+                        <g id="Layer_x0020_1">
+                            <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                            <path
+                                className="fil0"
+                                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            ></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="star-4">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlSpace="preserve"
+                        version="1.1"
+                        style={{ shapeRendering: "geometricPrecision", textRendering: "geometricPrecision", imageRendering: "auto", fillRule: "evenodd", clipRule: "evenodd" }}
+                        viewBox="0 0 784.11 815.53"
+                    >
+                        <defs></defs>
+                        <g id="Layer_x0020_1">
+                            <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                            <path
+                                className="fil0"
+                                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            ></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="star-5">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlSpace="preserve"
+                        version="1.1"
+                        style={{ shapeRendering: "geometricPrecision", textRendering: "geometricPrecision", imageRendering: "auto", fillRule: "evenodd", clipRule: "evenodd" }}
+                        viewBox="0 0 784.11 815.53"
+                    >
+                        <defs></defs>
+                        <g id="Layer_x0020_1">
+                            <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                            <path
+                                className="fil0"
+                                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            ></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="star-6">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlSpace="preserve"
+                        version="1.1"
+                        style={{ shapeRendering: "geometricPrecision", textRendering: "geometricPrecision", imageRendering: "auto", fillRule: "evenodd", clipRule: "evenodd" }}
+                        viewBox="0 0 784.11 815.53"
+                    >
+                        <defs></defs>
+                        <g id="Layer_x0020_1">
+                            <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                            <path
+                                className="fil0"
+                                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            ></path>
+                        </g>
+                    </svg>
+                </div>
+            </button>
         </>
     )
 }

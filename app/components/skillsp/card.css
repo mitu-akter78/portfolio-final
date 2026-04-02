@@ -1,0 +1,306 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap");
+
+/* ─── Reset & Root ──────────────────────────────────────── */
+.sc-root *,
+.sc-root *::before,
+.sc-root *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sc-root {
+  --bg:    #080808;
+  --fg:    #f0ebe0;
+  --muted: #6a6055;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans:  "DM Sans", sans-serif;
+
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ─── Hero ──────────────────────────────────────────────── */
+.sc-hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sc-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.sc-hero h1 em {
+  font-style: normal;
+  opacity: 0.45;
+}
+
+.sc-hero-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ── Scroll hint ── */
+.sc-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sc-scroll-hint span {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.sc-scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--muted));
+  animation: sc-scroll-drop 2s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes sc-scroll-drop {
+  0%   { transform: scaleY(0); opacity: 0; }
+  40%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; transform-origin: bottom; }
+}
+
+/* ─── Cards Section ─────────────────────────────────────── */
+.sc-cards {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+.sc-card {
+  position: absolute;
+  width: clamp(200px, 18vw, 270px);
+  height: clamp(300px, 27vw, 405px);
+  perspective: 1400px;
+  will-change: transform;
+}
+
+.sc-card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  border-radius: 18px;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 8px 20px  rgba(0, 0, 0, 0.4);
+}
+
+/* ── Card faces ── */
+.sc-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* ── Front face ── */
+.sc-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.6rem 1.4rem;
+}
+
+.sc-art {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.sc-art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sc-num {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.sc-label {
+  position: relative;
+  z-index: 1;
+}
+
+.sc-label h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 2.5vw, 2.6rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1;
+  color: #fff;
+}
+
+.sc-label p {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  color: #fff;
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* ── Back face ── */
+.sc-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.4rem;
+}
+
+.sc-back-num {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+
+.sc-back-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 0.9rem;
+}
+
+.sc-back-rule {
+  height: 1px;
+  margin-bottom: 0.9rem;
+  opacity: 0.2;
+}
+
+.sc-back-list {
+  list-style: none;
+  flex: 1;
+}
+
+.sc-back-list li {
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.3;
+}
+
+.sc-back-list li::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+.sc-back-foot {
+  margin-top: 1rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.28;
+}
+
+/* ─── Outro ──────────────────────────────────────────────── */
+.sc-outro {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sc-outro h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.sc-outro h2 em {
+  font-style: italic;
+}
+
+.sc-outro-sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ─── Grain overlay ─────────────────────────────────────── */
+.sc-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sc-card {
+    width: clamp(140px, 36vw, 200px);
+    height: clamp(210px, 54vw, 300px);
+  }
+}
