@@ -2,7 +2,7 @@
   min-height: 100%;
   width: 100%;
   position: relative;
-  background: radial-gradient(circle at center, #99d1ff 5%, #008cff 100%);
+  background: radial-gradient(circle at center, #99d1ff 2%, #008cff 100%);
 }
 .about-grid-background {
   position: absolute;

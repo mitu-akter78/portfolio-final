@@ -1,0 +1,135 @@
+/* ── Layout ── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 32px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Each icon button ── */
+.wrapper .icon {
+  position: relative;         /* ← needed so absolute label anchors here */
+  min-width: 52px;
+  min-height: 52px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  gap: 6px;
+
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(216, 238, 255, 0.40);
+  border-radius: 50%;
+  padding: 0;
+
+  box-shadow:
+    0 4px 12px rgba(10, 30, 80, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s ease,
+    border-color 0.3s ease;
+  /* ↑ width is NOT transitioned — stays 52 px always, label is absolute */
+}
+
+.wrapper .icon:hover {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(216, 238, 255, 0.65);
+  box-shadow:
+    0 6px 24px rgba(10, 30, 80, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* ── SVG colour transition ── */
+.wrapper .icon svg {
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+  color: rgba(216, 238, 255, 0.90);
+}
+
+.wrapper .linkedin:hover svg  { color: #5ab4ff; }
+.wrapper .x-twitter:hover svg { color: #ffffff; }
+.wrapper .github:hover svg    { color: #d8eeff; }
+
+/* ─────────────────────────────────────────────────────────
+   LABEL — ONLY CHANGE from original:
+   position: absolute so it floats LEFT of the circle
+   and never shifts any other element on expand.
+   All visual styles (text, underline) are identical.
+───────────────────────────────────────────────────────── */
+.wrapper .label-wrap {
+  position: absolute;
+  left: calc(100% + 10px);  /* hovers to the left of the icon */
+  top: 50%;
+  transform: translateY(-50%);
+
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+
+  transition:
+    max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.wrapper .icon:hover .label-wrap {
+  max-width: 120px;
+  opacity: 1;
+}
+
+/* ── Label text with gold animated underline ── */
+.wrapper .label-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 3px;
+  position: relative;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(10, 30, 80, 0.40);
+}
+
+.wrapper .label-text::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wrapper .icon:hover .label-text::after { width: 100%; }
+
+.wrapper .linkedin .label-text::after  { background: #f5c060; }
+.wrapper .x-twitter .label-text::after { background: #f5c060; }
+.wrapper .github .label-text::after    { background: #f5c060; }
+
+/* ── Mobile: icons go horizontal, label drops below ── */
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .wrapper .label-wrap {
+    right: auto;
+    left: 50%;
+    top: calc(100% + 8px);
+    transform: translateX(-50%);
+  }
+}
