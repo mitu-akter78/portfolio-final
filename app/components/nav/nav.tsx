@@ -7,7 +7,15 @@ import "./nav.css";
 /* ─────────────────────────────────────────────
    RollingLink
 ───────────────────────────────────────────── */
-function RollingLink({ href, children, className = "" }: { href: string, children: React.ReactNode, className?: string }) {
+function RollingLink({
+  href,
+  children,
+  className = "",
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   const ref = useRef<HTMLAnchorElement>(null);
 
   const handleMouseEnter = () => {
@@ -63,6 +71,8 @@ const SOCIAL_LINKS = [
    Nav
 ───────────────────────────────────────────── */
 export default function Nav() {
+  const svgRef = useRef<SVGSVGElement>(null);
+
   useEffect(() => {
     const navToggler = document.querySelector(".nav-toggler");
     const navBgs = document.querySelectorAll(".nav-bg");
@@ -91,7 +101,11 @@ export default function Nav() {
     const handleToggle = () => {
       if (isAnimating) return;
       isAnimating = true;
-      navToggler.classList.toggle("open");
+
+      if (svgRef.current) {
+        svgRef.current.classList.toggle("is-open");
+      }
+
       if (!isMenuOpen) {
         tl.play();
         animateLinksIn();
@@ -118,32 +132,33 @@ export default function Nav() {
 
   return (
     <>
-      {/* ── Top bar (untouched) ── */}
       <nav>
         <div className="nav-logo">
           <a href="#home">
             <span>Sadia</span>
           </a>
         </div>
+
         <button className="nav-toggler">
-          <span></span>
-          <span></span>
+          <svg ref={svgRef} viewBox="0 0 32 32" className="hamburger-svg">
+            <path
+              className="line line-top-bottom"
+              d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+            />
+            <path className="line" d="M7 16 27 16" />
+          </svg>
         </button>
       </nav>
 
-      {/* ── Overlay ── */}
       <div className="nav-content">
         <div className="nav-bg"></div>
         <div className="nav-bg"></div>
         <div className="nav-bg"></div>
         <div className="nav-bg"></div>
 
-        {/* ── Panel ── */}
         <div className="nav-items">
 
-          {/* Left: primary links + mobile socials */}
           <div className="nav-left">
-
             {PRIMARY_LINKS.map((item) => (
               <div key={item} className="link-reveal-wrap">
                 <div className="nav-link-inner" style={{ transform: "translateY(100%)" }}>
@@ -154,7 +169,6 @@ export default function Nav() {
               </div>
             ))}
 
-            {/* Mobile socials */}
             <div className="nav-socials-mobile">
               {SOCIAL_LINKS.map(({ label, href }) => (
                 <div key={label} className="link-reveal-wrap">
@@ -166,12 +180,9 @@ export default function Nav() {
                 </div>
               ))}
             </div>
-
           </div>
 
-          {/* Right: desktop socials + SADIA */}
           <div className="nav-right">
-
             <div className="nav-socials-desktop">
               {SOCIAL_LINKS.map(({ label, href }) => (
                 <div key={label} className="link-reveal-wrap">
@@ -189,7 +200,6 @@ export default function Nav() {
                 SADIA
               </div>
             </div>
-
           </div>
 
         </div>

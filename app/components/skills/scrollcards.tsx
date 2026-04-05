@@ -127,7 +127,7 @@ export default function ScrollCards() {
             key={card.num}
             data={card}
             zIndex={CARDS.length - i}
-            style={{ '--accent': card.accent } as any}
+            style={{ '--accent': card.accent, '--bg': card.bg } as any}
             ref={(el) => {
               if (el) cardRefs.current[i] = el
             }}

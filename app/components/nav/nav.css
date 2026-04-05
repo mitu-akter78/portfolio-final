@@ -18,17 +18,17 @@ nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
+  align-items: flex-start;
+  padding: 0rem 3rem;
   z-index: 1000;
   mix-blend-mode: difference;
   color: #fff;
 }
 
-.nav-logo,
-.nav-toggler {
-  padding: 1rem;
+/* ── Logo ───────────────────────────────────────────────── */
+.nav-logo {
   cursor: pointer;
+  padding-top: 2.5rem;
 }
 
 .nav-logo span {
@@ -36,6 +36,7 @@ nav {
   font-size: 2rem;
   letter-spacing: 0.1vw;
   text-transform: uppercase;
+  line-height: 1;
 }
 
 .nav-logo a {
@@ -48,25 +49,40 @@ nav {
   background: none;
   border: none;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
 }
 
-.nav-toggler span {
-  width: 40px;
-  height: 2px;
-  background-color: #ffffff;
-  transition: all 0.4s ease;
+/* ── Hamburger SVG ──────────────────────────────────────── */
+.hamburger-svg {
+  width: 44px;
+  height: 44px;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-toggler.open span:first-child {
-  transform: translateY(3.5px) rotate(45deg) scaleX(0.75);
+.line {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+              stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-toggler.open span:nth-child(2) {
-  transform: translateY(-3.5px) rotate(-45deg) scaleX(0.75);
+.line-top-bottom {
+  stroke-dasharray: 12 63;
+}
+
+.hamburger-svg.is-open {
+  transform: rotate(-45deg);
+}
+
+.hamburger-svg.is-open .line-top-bottom {
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: -32.42;
 }
 
 /* ── Nav overlay shell ──────────────────────────────────── */
@@ -207,12 +223,11 @@ nav {
 .nav-sadia {
   font-family: 'Oi', serif;
   left: 628px;
-top: 811px;
+  top: 811px;
   font-size: clamp(4rem, 11vw, 9.5rem);
   color: #fff;
   line-height: 1;
-  
-letter-spacing: 0.05em; 
+  letter-spacing: 0.05em;
   user-select: none;
   white-space: nowrap;
   margin-top: auto;
@@ -220,9 +235,6 @@ letter-spacing: 0.05em;
   margin-right: -3rem;
   margin-bottom: -0.6em;
 }
-
-
-
 
 /* ── Reveal wrapper ─────────────────────────────────────── */
 .link-reveal-wrap {
