@@ -180,9 +180,9 @@ export const CARDS: CardData[] = [
 ]
 
 export const SPREAD = [
-  { x: "-43vw", y: "3vh",  rot: -21 },
-  { x: "-21vw", y: "-2vh", rot: -9  },
+  { x: "-35vw", y: "8vh",  rot: -21 },
+  { x: "-18vw", y: "-2vh", rot: -9  },
   { x:   "0vw", y: "-5vh", rot:  0  },
-  { x:  "21vw", y: "-2vh", rot:  9  },
-  { x:  "43vw", y: "3vh",  rot:  21 },
+  { x:  "18vw", y: "-2vh", rot:  9  },
+  { x:  "35vw", y: "8vh",  rot:  21 },
 ]

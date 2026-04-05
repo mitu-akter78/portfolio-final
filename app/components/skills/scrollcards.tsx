@@ -14,21 +14,21 @@ const TOTAL_SCROLL_MULTIPLIER = 3.5
 
 export default function ScrollCards() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const sectionRef   = useRef<HTMLElement>(null)
-  const cardRefs     = useRef<HTMLDivElement[]>([])
+  const sectionRef = useRef<HTMLElement>(null)
+  const cardRefs = useRef<HTMLDivElement[]>([])
 
   /* ── Lenis smooth scroll ──────────────────────────────── */
   useEffect(() => {
     return () => {
-    ScrollTrigger.getAll().forEach((t) => t.kill())
-  }
+      ScrollTrigger.getAll().forEach((t) => t.kill())
+    }
   }, [])
 
   /* ── GSAP scroll animations ───────────────────────────── */
   useGSAP(
     () => {
-      const cards  = cardRefs.current
-      const total  = () => window.innerHeight * TOTAL_SCROLL_MULTIPLIER
+      const cards = cardRefs.current
+      const total = () => window.innerHeight * TOTAL_SCROLL_MULTIPLIER
       const spread = () => window.innerHeight * 1.1
 
       // Pin the cards section
@@ -63,10 +63,10 @@ export default function ScrollCards() {
 
       // Phase 2 — flip each card staggered
       cards.forEach((card, i) => {
-        const inner   = card.querySelector<HTMLElement>(".sc-card-inner")
+        const inner = card.querySelector<HTMLElement>(".sc-card-inner")
         const stagger = i * 0.055
-        const t0      = 0.30 + stagger
-        const t1      = Math.min(0.68 + stagger, 0.94)
+        const t0 = 0.30 + stagger
+        const t1 = Math.min(0.68 + stagger, 0.94)
         const targetRot = SPREAD[i].rot
 
         ScrollTrigger.create({
@@ -85,7 +85,6 @@ export default function ScrollCards() {
 
             if (!inner) return
             gsap.set(inner, { rotateY: 180 * e })
-            gsap.set(card,  { rotation: targetRot * (1 - e) })
           },
         })
       })
@@ -97,7 +96,7 @@ export default function ScrollCards() {
   useEffect(() => {
     const handleResize = () => {
       clearTimeout((handleResize as any)._t)
-      ;(handleResize as any)._t = setTimeout(() => ScrollTrigger.refresh(), 250)
+        ; (handleResize as any)._t = setTimeout(() => ScrollTrigger.refresh(), 250)
     }
     window.addEventListener("resize", handleResize)
     return () => {
@@ -112,9 +111,7 @@ export default function ScrollCards() {
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="sc-hero">
         <h1>
-          A few things
-          <br />
-          <em>I do well</em>
+          my skills
         </h1>
         <p className="sc-hero-sub">Scroll to reveal</p>
         <div className="sc-scroll-hint" aria-hidden="true">
@@ -130,6 +127,7 @@ export default function ScrollCards() {
             key={card.num}
             data={card}
             zIndex={CARDS.length - i}
+            style={{ '--accent': card.accent } as any}
             ref={(el) => {
               if (el) cardRefs.current[i] = el
             }}
@@ -146,7 +144,6 @@ export default function ScrollCards() {
         </h2>
         <p className="sc-outro-sub">Available for new projects</p>
       </section>
-
     </div>
   )
 }
