@@ -2,7 +2,7 @@
   min-height: 100%;
   width: 100%;
   position: relative;
-  background: radial-gradient(circle at center, #99d1ff 2%, #008cff 100%);
+  background: radial-gradient(circle at center, #0688f3 2%, #d2d8db 100%);
 }
 .about-grid-background {
   position: absolute;
@@ -34,12 +34,21 @@
 }
 
 .heading{
-    padding-top: 20px;
-    padding-right: 10px;
-    text-shadow: 8px 5px 12px #0000005d;
+    padding: 0 0 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 6rem;
+    text-shadow: 4px 4px 12px #0113645d;
 }
 
-.about-text{
-    padding-left: 62px;
-    padding-top: 20px;
+.about-text {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.75rem;
+  max-width: 45rem;
+  margin-left: auto;
+  margin-right: auto;
 }

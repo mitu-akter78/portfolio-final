@@ -90,7 +90,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="hero" ref={heroRef}>
+    <section className="hero" ref={heroRef} id="home">
       <div className="depth-layer"><div className="depth-mask"></div></div>
       <div className="depth-layer"><div className="depth-mask"></div></div>
       <div className="depth-layer"><div className="depth-mask"></div></div>

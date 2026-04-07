@@ -41,7 +41,7 @@
   font-weight: 300;
   font-style: italic;
   text-align: center;
-  line-height: 1.08;
+  line-height: 0.08;
   letter-spacing: -0.01em;
 }
 
@@ -50,18 +50,10 @@
   opacity: 0.45;
 }
 
-.sc-hero-sub {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 300;
-}
-
 /* ── Scroll hint ── */
 .sc-scroll-hint {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 8.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -306,37 +298,6 @@
   opacity: 0.28;
 }
 
-/* ─── Outro ──────────────────────────────────────────────── */
-.sc-outro {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.sc-outro h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 5vw, 4.5rem);
-  font-weight: 300;
-  text-align: center;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-}
-
-.sc-outro h2 em {
-  font-style: italic;
-}
-
-.sc-outro-sub {
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 300;
-}
 
 /* ─── Grain overlay ─────────────────────────────────────── */
 .sc-root::after {

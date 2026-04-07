@@ -97,32 +97,29 @@ export default function About() {
 
   return (
     <main
-      className="about-grid-wrapper">    
-    <div className="about-grid-background" />  
-    <div
-    className={`about-content w-full text-slate-900 ${outfit.variable} font-sans overflow-hidden border-t-2 border-blue-950`}
+      className="about-grid-wrapper"
+      id="about"
     >
-      <div className="heading flex justify-end w-full ">
-        <h2
-          className="text-5xl md:text-8xl font-black uppercase tracking-wider"
-          style={{ fontFamily: "var(--font-outfit)" }}
-        >
-          About Me
-        </h2>
-      </div>
-
-      <div className="min-h-screen py-12 md:py-20 px-6 md:px-12">
-        <h1
-          ref={textRef}
-          className="about-text text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight sm:leading-snug md:leading-normal text-left max-w-[80%]"
-          style={{ fontFamily: "var(--font-outfit)" }}
-        >
-          I am a versatile AI assistant, designed to help you build, create,
-          and explore. From writing code to crafting stories, I adapt to your
-          needs, turning your ideas into reality through the power of language
-          and logic.
-        </h1>
-      </div>
+      <div className="about-grid-background" />
+      <div
+        className={`about-content w-full text-slate-900 ${outfit.variable} font-sans overflow-hidden`}
+      >
+        <div className="flex flex-col items-center justify-center min-h-screen text-center px-6">
+          <h1 style={{ fontFamily: "var(--font-outfit)" }}
+            className="heading">
+            About Me
+          </h1>
+          <p
+            ref={textRef}
+            className="about-text "
+            style={{ fontFamily: "var(--font-outfit)" }}
+          >
+            I am a versatile AI assistant, designed to help you build, create,
+            and explore. From writing code to crafting stories, I adapt to your
+            needs, turning your ideas into reality through the power of language
+            and logic.
+          </p>
+        </div>
       </div>
     </main>
   );

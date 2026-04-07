@@ -8,11 +8,11 @@ const ContactBtn: React.FC = () => {
                   position: relative;
                   margin-top: 2.25rem;
                   margin-left: 1.25rem;
-                  padding: 0.55rem 3.2rem;
-                  background: #fec195;
+                  padding: 0.45rem 3.2rem;
+                  background: #001633;
                   font-size: clamp(0.8rem, 2.5vw, 1.6rem);
                   font-weight: 500;
-                  color: #181818;
+                  color: #ffffff;
                   border: 3px solid #fec195;
                   border-radius: 8px;
                   box-shadow: 0 0 0 #fec1958c;

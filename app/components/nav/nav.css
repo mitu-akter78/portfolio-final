@@ -1,14 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Oi&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap");
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Onest", sans-serif;
-}
 
 /* ── Shell: nav bar ─────────────────────────────────────── */
 nav {
@@ -32,7 +27,7 @@ nav {
 }
 
 .nav-logo span {
-  font-family: 'Secondary';
+  font-family: var(--font-bricolage), sans-serif;
   font-size: 2rem;
   letter-spacing: 0.1vw;
   text-transform: uppercase;
@@ -52,13 +47,13 @@ nav {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 0;
+  padding-top: 2.5rem;
 }
 
 /* ── Hamburger SVG ──────────────────────────────────────── */
 .hamburger-svg {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -142,12 +137,12 @@ nav {
 
 /* ── Primary links ──────────────────────────────────────── */
 .nav-primary-link {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-bricolage), sans-serif;
   font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
+  text-transform: lowercase;
 }
 
 /* ── Mobile socials — shown only on mobile ──────────────── */
@@ -157,6 +152,16 @@ nav {
   gap: 0.35rem;
   margin-top: 1.5rem;
 }
+
+.nav-primary-link,
+.nav-social-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;  /* needed for TextStaggerHover overflow */
+}
+
+
+
 
 @media (min-width: 768px) {
   .nav-socials-mobile {
@@ -184,17 +189,19 @@ nav {
   flex-direction: column;
   gap: 0.35rem;
   align-items: flex-end;
+  margin: 3vw 0 0 0;
 }
 
 /* ── Social link shared ─────────────────────────────────── */
 .nav-social-link {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-bricolage), sans-serif;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.35rem;
+  padding-right: 1.5rem;
 }
 
 .nav-socials-mobile .nav-social-link {
@@ -221,11 +228,20 @@ nav {
 
 /* ── Decorative SADIA ───────────────────────────────────── */
 .nav-sadia {
-  font-family: 'Oi', serif;
+  font-family: 'var(--font-bricolage)', sans-serif;
+  font-weight: 800;
   left: 628px;
   top: 811px;
-  font-size: clamp(4rem, 11vw, 9.5rem);
-  color: #fff;
+  font-size: 15vw;
+  /* Gradient: light top → dark bottom */
+  background: linear-gradient(
+    180deg,
+    #FBFCFF 25%,
+    rgba(128, 162, 253, 0.71) 71.29%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
   letter-spacing: 0.05em;
   user-select: none;
@@ -233,37 +249,15 @@ nav {
   margin-top: auto;
   align-self: flex-end;
   margin-right: -3rem;
-  margin-bottom: -0.6em;
+  margin-bottom: -0.49em;
 }
 
 /* ── Reveal wrapper ─────────────────────────────────────── */
 .link-reveal-wrap {
   overflow: hidden;
+  line-height: 1.1;
 }
 
 .nav-link-inner {
   will-change: transform;
-}
-
-/* ── Rolling link ───────────────────────────────────────── */
-.rolling-link {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-.roll-top,
-.roll-bottom {
-  display: block;
-  will-change: transform;
-}
-
-.roll-bottom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
 }

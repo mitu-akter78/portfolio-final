@@ -3,179 +3,119 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "./nav.css";
+import { NavLink } from "./nav-link";
 
-/* ─────────────────────────────────────────────
-   RollingLink
-───────────────────────────────────────────── */
-function RollingLink({
-  href,
-  children,
-  className = "",
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const ref = useRef<HTMLAnchorElement>(null);
-
-  const handleMouseEnter = () => {
-    if (!ref.current) return;
-    const top = ref.current.querySelector(".roll-top");
-    const bottom = ref.current.querySelector(".roll-bottom");
-    gsap.to(top, { y: "-110%", duration: 0.5, ease: "power3.inOut" });
-    gsap.fromTo(bottom, { y: "110%" }, { y: "0%", duration: 0.5, ease: "power3.inOut" });
-  };
-
-  const handleMouseLeave = () => {
-    if (!ref.current) return;
-    const top = ref.current.querySelector(".roll-top");
-    const bottom = ref.current.querySelector(".roll-bottom");
-    gsap.to(top, { y: "0%", duration: 0.5, ease: "power3.inOut" });
-    gsap.to(bottom, { y: "110%", duration: 0.5, ease: "power3.inOut" });
-  };
-
-  return (
-    <a
-      ref={ref}
-      href={href}
-      className={`rolling-link ${className}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <span className="roll-top">{children}</span>
-      <span className="roll-bottom" style={{ transform: "translateY(110%)" }}>
-        {children}
-      </span>
-    </a>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Arrow icon
-───────────────────────────────────────────── */
-function ArrowIcon() {
-  return <span className="arrow-icon">↗</span>;
-}
-
-/* ─────────────────────────────────────────────
-   Data
-───────────────────────────────────────────── */
-const PRIMARY_LINKS = ["Home", "About", "Skills", "Projects", "Contact"];
-const SOCIAL_LINKS = [
-  { label: "Github", href: "#" },
-  { label: "Linkdin", href: "#" },
-  { label: "Fiver", href: "#" },
+const PRIMARY_LINKS = [
+  { label: "Home",     href: "#home"     },
+  { label: "About",   href: "#about"    },
+  { label: "Skills",  href: "#skills"   },
+  { label: "Projects",href: "#projects" },
+  { label: "Contact", href: "#contact"  },
 ];
 
-/* ─────────────────────────────────────────────
-   Nav
-───────────────────────────────────────────── */
+const SOCIAL_LINKS = [
+  { label: "Github",  href: "#" },
+  { label: "LinkedIn",href: "#" },
+  { label: "Fiverr",  href: "#" },
+];
+
 export default function Nav() {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  useEffect(() => {
+  useEffect( () => {
     const navToggler = document.querySelector(".nav-toggler");
-    const navBgs = document.querySelectorAll(".nav-bg");
-    let isMenuOpen = false;
-    let isAnimating = false;
+    const navBgs     = document.querySelectorAll(".nav-bg");
+    let isMenuOpen   = false;
+    let isAnimating  = false;
 
     if (!navToggler) return;
 
     const tl = gsap.timeline({
       paused: true,
-      onComplete: () => { isAnimating = false; },
+      onComplete:        () => { isAnimating = false; },
       onReverseComplete: () => {
         gsap.set(".nav-link-inner", { y: "100%" });
         isAnimating = false;
       },
     });
 
-    function animateLinksIn() {
+    const animateLinksIn = () => {
       gsap.fromTo(
         ".nav-link-inner",
         { y: "100%" },
         { y: "0%", duration: 0.7, stagger: 0.07, ease: "power3.out", delay: 0.8 }
       );
-    }
+    };
 
     const handleToggle = () => {
       if (isAnimating) return;
       isAnimating = true;
+      svgRef.current?.classList.toggle("is-open");
 
-      if (svgRef.current) {
-        svgRef.current.classList.toggle("is-open");
-      }
-
-      if (!isMenuOpen) {
-        tl.play();
-        animateLinksIn();
-      } else {
-        tl.reverse();
-      }
+      if (!isMenuOpen) { tl.play(); animateLinksIn(); }
+      else             { tl.reverse(); }
       isMenuOpen = !isMenuOpen;
     };
 
     navToggler.addEventListener("click", handleToggle);
 
-    tl.to(navBgs, { scaleX: 1, duration: 0.75, stagger: 0.1, ease: "power3.inOut" });
-    tl.to(
-      ".nav-items",
-      { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.75, ease: "power3.inOut" },
-      "-=0.6"
-    );
+    const navLinks = document.querySelectorAll(".nav-primary-link, .nav-social-link");
+    navLinks.forEach((link) => link.addEventListener("click", () => {
+      if (isMenuOpen) handleToggle();
+    }));
 
-    return () => {
-      tl.kill();
-      navToggler.removeEventListener("click", handleToggle);
-    };
+    tl.to(navBgs, { scaleX: 1, duration: 0.75, stagger: 0.1, ease: "power3.inOut" });
+    tl.to(".nav-items", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      duration: 0.75,
+      ease: "power3.inOut",
+    }, "-=0.6");
+
+    return () => { tl.kill(); };
   }, []);
 
   return (
     <>
       <nav>
         <div className="nav-logo">
-          <a href="#home">
-            <span>Sadia</span>
-          </a>
+          <a href="#home"><span>Sadia</span></a>
         </div>
 
         <button className="nav-toggler">
           <svg ref={svgRef} viewBox="0 0 32 32" className="hamburger-svg">
-            <path
-              className="line line-top-bottom"
-              d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
-            />
-            <path className="line" d="M7 16 27 16" />
+            <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"/>
+            <path className="line" d="M7 16 27 16"/>
           </svg>
         </button>
       </nav>
 
       <div className="nav-content">
-        <div className="nav-bg"></div>
-        <div className="nav-bg"></div>
-        <div className="nav-bg"></div>
-        <div className="nav-bg"></div>
+        <div className="nav-bg" /><div className="nav-bg" />
+        <div className="nav-bg" /><div className="nav-bg" />
 
         <div className="nav-items">
-
           <div className="nav-left">
-            {PRIMARY_LINKS.map((item) => (
-              <div key={item} className="link-reveal-wrap">
+            {PRIMARY_LINKS.map(({ label, href }) => (
+              <div key={label} className="link-reveal-wrap">
                 <div className="nav-link-inner" style={{ transform: "translateY(100%)" }}>
-                  <RollingLink href={`#${item.toLowerCase()}`} className="nav-primary-link">
-                    {item}
-                  </RollingLink>
+                  <NavLink
+                    href={href}
+                    label={label}
+                    className="nav-primary-link"
+                    staggerDirection="start"
+                    animationOut="top"
+                    animationIn="bottom"
+                  />
                 </div>
               </div>
             ))}
 
+            {/* Mobile socials */}
             <div className="nav-socials-mobile">
               {SOCIAL_LINKS.map(({ label, href }) => (
                 <div key={label} className="link-reveal-wrap">
                   <div className="nav-link-inner" style={{ transform: "translateY(100%)" }}>
-                    <RollingLink href={href} className="nav-social-link">
-                      {label} <ArrowIcon />
-                    </RollingLink>
+                    <NavLink href={href} label={label} className="nav-social-link" showArrow={true} />
                   </div>
                 </div>
               ))}
@@ -187,9 +127,7 @@ export default function Nav() {
               {SOCIAL_LINKS.map(({ label, href }) => (
                 <div key={label} className="link-reveal-wrap">
                   <div className="nav-link-inner" style={{ transform: "translateY(100%)" }}>
-                    <RollingLink href={href} className="nav-social-link">
-                      {label} <ArrowIcon />
-                    </RollingLink>
+                    <NavLink href={href} label={label} className="nav-social-link" showArrow={true} />
                   </div>
                 </div>
               ))}
@@ -201,7 +139,6 @@ export default function Nav() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </>

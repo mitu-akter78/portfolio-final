@@ -106,14 +106,13 @@ export default function ScrollCards() {
   }, [])
 
   return (
-    <div className="sc-root" ref={containerRef}>
+    <div className="sc-root" ref={containerRef} id="skills">
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="sc-hero">
         <h1>
           my skills
         </h1>
-        <p className="sc-hero-sub">Scroll to reveal</p>
         <div className="sc-scroll-hint" aria-hidden="true">
           <div className="sc-scroll-line" />
           <span>Scroll</span>
@@ -133,16 +132,6 @@ export default function ScrollCards() {
             }}
           />
         ))}
-      </section>
-
-      {/* ── Outro ─────────────────────────────────────────── */}
-      <section className="sc-outro">
-        <h2>
-          Let&rsquo;s build
-          <br />
-          <em>something together</em>
-        </h2>
-        <p className="sc-outro-sub">Available for new projects</p>
       </section>
     </div>
   )

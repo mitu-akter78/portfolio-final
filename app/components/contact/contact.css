@@ -35,7 +35,7 @@
 /* ── LAYER 1 · BRAND TEXT ── */
 .brand-text-wrap {
   position: absolute;
-  bottom: -12rem;
+  bottom: -16rem;
   width: 100%;
   z-index: 1;
   pointer-events: none;
@@ -146,13 +146,13 @@
   font-size: clamp(2.4rem, 6.2vw, 3.9rem);
   letter-spacing: 0.02em;
   background: linear-gradient(100deg,
-      #f7f2f6 0%,
-      #00eeff 45%,
-      #7cc2fc 100%);
+      #010544 0%,
+      #2f5ffd 45%,
+      #010544 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 12px rgba(13, 3, 109, 0.45)) drop-shadow(0 2px 6px rgba(5, 21, 61, 0.5));
+  filter: drop-shadow(0 0 12px rgba(7, 0, 68, 0.45)) drop-shadow(0 2px 6px rgba(5, 21, 61, 0.5));
 }
 
 /* ─────────────────────────────────────────
@@ -162,9 +162,10 @@
   pointer-events: auto;
   display: flex;
   flex-direction: column;
+  
   align-items: flex-start;
   gap: 2.5rem;
-  padding: clamp(1rem, 2vw, 3rem);
+  padding: 4vw 2vw;
 }
 
 .social-title {
@@ -178,7 +179,7 @@
 
 .social-arrow {
   margin-left: 0.4rem;
-  color: #f5c060;
+  color: #ffffff;
 }
 
 .social-links {

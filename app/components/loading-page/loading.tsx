@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "./loading.css";
@@ -168,7 +169,7 @@ export default function Loading({ onComplete }: LoadingProps) {
               opacity: 0,
               duration: TIMING.progressFade,
               ease: "power3.out",
-              onComplete: () => wipeTl.play(),
+              onComplete: () => { wipeTl.play(); },
             });
         }
       });
