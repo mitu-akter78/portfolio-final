@@ -8,6 +8,7 @@ import { FaArrowLeft, FaArrowRight, FaReact } from "react-icons/fa";
 import { SiTailwindcss, SiTypescript, SiNextdotjs, SiFramer, SiNodedotjs, SiGraphql, SiVercel, SiPrisma, SiThreedotjs, SiWebgl, SiFirebase, SiStripe } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
 import "./project.css";
+import { TextScrollReveal } from "../ui/TextScrollReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -319,19 +320,37 @@ export default function Projects() {
 
   return (
     <>
-      <section className="sticky-cards border-t-2 border-blue-950" ref={stickyRef} id="projects">
+      <div style={{ position: "relative" }}>
         <div className="project-grid-background" />
-        {cardData.map((card, i) => (
-          <div
-            key={card.id}
-            id={card.id}
-            className="card"
-            ref={(el) => { cardRefs.current[i] = el; }}
-          >
-            <CardContent data={card} />
+
+        <div className="project-heading-wrapper">
+          <div className="project-heading">
+            <TextScrollReveal
+              as="h1"
+              animation="bottom"
+              splitBy="chars"
+              triggerStart="top 85%"
+              triggerEnd="bottom 30%"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              my projects
+            </TextScrollReveal>
           </div>
-        ))}
-      </section>
+        </div>
+        <section className="sticky-cards" ref={stickyRef} id="projects">
+          <div className="project-grid-background" />
+          {cardData.map((card, i) => (
+            <div
+              key={card.id}
+              id={card.id}
+              className="card"
+              ref={(el) => { cardRefs.current[i] = el; }}
+            >
+              <CardContent data={card} />
+            </div>
+          ))}
+        </section>
+      </div>
     </>
   );
 }

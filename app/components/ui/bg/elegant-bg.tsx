@@ -7,7 +7,7 @@ interface DarkGradientBgProps {
 
 export function DarkGradientBg({ children, className }: DarkGradientBgProps) {
   return (
-    <div className="relative min-h-screen w-full bg-[#1565C0] overflow-hidden">
+    <div className="relative min-h-screen w-full bg-[#008cff] overflow-hidden">
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 opacity-100"

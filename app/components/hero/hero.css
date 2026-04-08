@@ -90,7 +90,7 @@
 
 .depth-layer:nth-child(3) .depth-mask {
   --size: 45%;
-  background: hsl(207, 100%, 50%);
+  background: hsl(207, 100%, 48%);
 }
 
 .depth-layer:nth-child(4) .depth-mask {

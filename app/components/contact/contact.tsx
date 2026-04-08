@@ -135,7 +135,7 @@ export default function ContactPage() {
         <main id="contact">
           <div ref={sectionRef} className={`contact-root ${outfit.className}`}>
             <div
-              style={{ width: "100%", height: "600px", position: "relative" }}
+              style={{ width: "100%", height: "100%", position: "relative" }}
             >
               <div className="contact-grid-background" />
 
@@ -163,8 +163,12 @@ export default function ContactPage() {
                   </h1>
 
                   {/* CTA button — added mt-8 for top breathing room */}
-                  <div ref={btnRef} className="mt-14">
-                    <LiquidMetalButton label="Get Started" />
+                  <div style={{ marginTop: "2rem" }}>
+                    <div ref={btnRef} >
+                    <Link href="https://google.com" target="_blank">
+                      <LiquidMetalButton label="Get Started" />
+                    </Link>
+                    </div>
                   </div>
                 </div>
 

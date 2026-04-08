@@ -4,9 +4,11 @@ import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { Outfit } from "next/font/google";
 import Card from "./card"
 import { CARDS, SPREAD } from "./cards.data"
 import "./card.css"
+import { TextScrollReveal } from "../ui/TextScrollReveal";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -107,32 +109,43 @@ export default function ScrollCards() {
 
   return (
     <div className="sc-root" ref={containerRef} id="skills">
+      
+      <div className="skills-grid-background" />
+      
+      <div className="flex flex-col items-center justify-center min-h-screen text-center px-6">
+        {/* ── Hero ──────────────────────────────────────────── */}
+        <section className="sc-hero">
+          <TextScrollReveal
+            as="h1"
+            animation="bottom"
+            splitBy="chars"
+            triggerStart="top 85%"
+            triggerEnd="bottom 30%"
+            style={{ fontFamily: "var(--font-bricolage)" }}
+          >
+            my skills
+          </TextScrollReveal>
+          <div className="sc-scroll-hint" aria-hidden="true">
+            <div className="sc-scroll-line" />
+            <span>Scroll</span>
+          </div>
+        </section>
 
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <section className="sc-hero">
-        <h1>
-          my skills
-        </h1>
-        <div className="sc-scroll-hint" aria-hidden="true">
-          <div className="sc-scroll-line" />
-          <span>Scroll</span>
-        </div>
-      </section>
-
-      {/* ── Cards ─────────────────────────────────────────── */}
-      <section className="sc-cards" ref={sectionRef}>
-        {CARDS.map((card, i) => (
-          <Card
-            key={card.num}
-            data={card}
-            zIndex={CARDS.length - i}
-            style={{ '--accent': card.accent, '--bg': card.bg } as any}
-            ref={(el) => {
-              if (el) cardRefs.current[i] = el
-            }}
-          />
-        ))}
-      </section>
+        {/* ── Cards ─────────────────────────────────────────── */}
+        <section className="sc-cards" ref={sectionRef}>
+          {CARDS.map((card, i) => (
+            <Card
+              key={card.num}
+              data={card}
+              zIndex={CARDS.length - i}
+              style={{ '--accent': card.accent, '--bg': card.bg } as any}
+              ref={(el) => {
+                if (el) cardRefs.current[i] = el
+              }}
+            />
+          ))}
+        </section>
+      </div>
     </div>
   )
 }

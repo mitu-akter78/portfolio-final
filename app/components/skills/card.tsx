@@ -24,6 +24,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ data, zIndex, style }, ref) => {
     return (
       <div className="sc-card" ref={ref} style={{ ...style, zIndex }}>
+        
         <div className="sc-card-inner">
         
           <div

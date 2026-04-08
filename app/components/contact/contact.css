@@ -17,9 +17,9 @@
   left: 0;
   z-index: 0;
   background-image:
-    linear-gradient(to right, rgba(168, 208, 245, 0.18) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(168, 208, 245, 0.18) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(to right, rgba(168, 208, 245, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 208, 245, 0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 50%, transparent 70%);
   mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 80%);
 }
@@ -53,7 +53,7 @@
   background: linear-gradient(
     180deg,
     rgba(63, 197, 255, 0.51) 0%,
-    rgba(0, 42, 131, 0.51) 85.14%
+    rgba(66, 125, 252, 0.51) 85.14%
   );
   filter: blur(50px);
   z-index: 0;
@@ -67,7 +67,7 @@
   font-family: "GOVER", sans-serif;
   font-style: normal;
   font-weight: 400;         
-  font-size: 320px;         
+  font-size: 25vw;         
   line-height: 167%;
   text-align: center;
   letter-spacing: 0.05em;

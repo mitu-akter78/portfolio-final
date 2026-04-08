@@ -6,6 +6,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import { Outfit } from "next/font/google";
 import "./about.css";
+import { TextScrollReveal } from "../ui/TextScrollReveal";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -16,8 +17,6 @@ export default function About() {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    // Lenis is handled globally in providers.tsx — do NOT instantiate it here
-
     gsap.registerPlugin(ScrollTrigger);
 
     let split: SplitType | null = null;
@@ -26,7 +25,6 @@ export default function About() {
     const initAnimation = () => {
       if (!textRef.current) return;
 
-      // Clean up previous instances scoped to this component only
       triggers.forEach((t) => t.kill());
       triggers = [];
       if (split) split.revert();
@@ -37,10 +35,8 @@ export default function About() {
       const chars = split.chars;
 
       if (chars) {
-        // READ all widths in one pass to avoid layout thrashing
         const widths = chars.map((char) => char.getBoundingClientRect().width);
 
-        // WRITE all at once after — no reflows triggered between reads
         chars.forEach((char, i) => {
           gsap.set(char, {
             width: widths[i],
@@ -58,7 +54,6 @@ export default function About() {
           stagger: { each: 0.05, from: "start" },
         });
 
-        // Save the trigger so we only kill THIS component's triggers on cleanup
         const st = ScrollTrigger.create({
           trigger: textRef.current,
           start: "top 80%",
@@ -90,35 +85,46 @@ export default function About() {
     return () => {
       window.removeEventListener("resize", handleResize);
       clearTimeout(resizeTimer);
-      triggers.forEach((t) => t.kill()); // ✅ only kills this component's triggers
+      triggers.forEach((t) => t.kill());
       if (split) split.revert();
     };
   }, []);
 
   return (
-    <main
-      className="about-grid-wrapper"
-      id="about"
-    >
+    <main className="about-grid-wrapper" id="about">
       <div className="about-grid-background" />
       <div
-        className={`about-content w-full text-slate-900 ${outfit.variable} font-sans overflow-hidden`}
+        className={`about-content w-full text-[#ffffff] overflow-hidden`}
       >
-        <div className="flex flex-col items-center justify-center min-h-screen text-center px-6">
-          <h1 style={{ fontFamily: "var(--font-outfit)" }}
-            className="heading">
-            About Me
-          </h1>
+        <div className="about-inner">
+
+          <div className="heading">
+            <TextScrollReveal
+              as="h1"
+              animation="bottom"
+              splitBy="chars"
+              triggerStart="top 85%"
+              triggerEnd="bottom 40%"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              ABOUT ME
+            </TextScrollReveal>
+          </div>
+
           <p
             ref={textRef}
-            className="about-text "
+            className="about-text"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
-            I am a versatile AI assistant, designed to help you build, create,
-            and explore. From writing code to crafting stories, I adapt to your
-            needs, turning your ideas into reality through the power of language
-            and logic.
+            Hi, I'm Sadia — A Creative Developer & Designer.
+            
+            I Build Fast, Scalable, And User-Focused Web Applications That Turn Complex Ideas Into Clear, Intuitive Experiences.
+           
+            I Focus On Creating Well-Structured Systems That Are Reliable, Easy To Maintain, And Built To Evolve Over Time.
+            
+            I Work With Modern Web Technologies And AI-Assisted Workflows To Deliver Efficient, High-Quality Solutions.
           </p>
+
         </div>
       </div>
     </main>

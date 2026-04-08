@@ -27,7 +27,7 @@ nav {
 }
 
 .nav-logo span {
-  font-family: var(--font-bricolage), sans-serif;
+  font-family: 'Secondary';
   font-size: 2rem;
   letter-spacing: 0.1vw;
   text-transform: uppercase;
@@ -112,7 +112,7 @@ nav {
 /* ── Nav items panel ────────────────────────────────────── */
 .nav-items {
   height: 100svh;
-  background-color: #0086f3;
+  background-color: #0977E0;
   clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
   will-change: clip-path;
   pointer-events: auto;
@@ -159,9 +159,6 @@ nav {
   color: inherit;
   display: inline-block;  /* needed for TextStaggerHover overflow */
 }
-
-
-
 
 @media (min-width: 768px) {
   .nav-socials-mobile {

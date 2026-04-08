@@ -41,14 +41,14 @@ const NavLink = ({
         <TextStaggerHoverHidden
           animation={animationIn}
           className="origin-bottom"
-          charClassName="bg-linear-to-t from-[#002a6e] via-[#69a2ff] to-[#ffffff] bg-clip-text text-transparent"
+          charClassName="bg-linear-to-t from-[#FE7A0F] to-[#ffffff] bg-clip-text text-transparent"
           staggerDirection={staggerDirection}
         >
           {label}
         </TextStaggerHoverHidden>
       </TextStaggerHover>
       {showArrow && (
-        <span className="arrow-icon transition-transform duration-300 ease-out group-hover:translate-x-1">
+        <span className="text-white arrow-icon transition-transform duration-300 ease-out group-hover:translate-x-1">
           <ArrowUpRight size={14} strokeWidth={2.5} />
         </span>
       )}

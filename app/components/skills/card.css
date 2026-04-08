@@ -9,18 +9,33 @@
   box-sizing: border-box;
 }
 
+.skills-grid-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(168, 208, 245, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 208, 245, 0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
 .sc-root {
-  --bg:    #008cff;
-  --fg:    #f0ebe0;
-  --muted: #99d1ff;
+  position: relative;
+  --bg:    #0977E0;
+  --fg:    #ffffff;
+  --muted: #fadbb9;
   --font-serif: "Cormorant Garamond", serif;
-  --font-sans:  "DM Sans", sans-serif;
+  --font-sans:  "var(--font-bricolage)", sans-serif;
 
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
   width: 100%;
   overflow-x: hidden;
+  padding-bottom: 20vh;
 }
 
 /* ─── Hero ──────────────────────────────────────────────── */
@@ -32,17 +47,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .sc-hero h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
-  font-weight: 300;
-  font-style: italic;
+  font-family: var(--font-bricolage);
+  font-size: clamp(3rem, 6vw, 8rem);
+  font-weight: 600;
   text-align: center;
-  line-height: 0.08;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .sc-hero h1 em {
@@ -53,19 +67,18 @@
 /* ── Scroll hint ── */
 .sc-scroll-hint {
   position: absolute;
-  bottom: 8.5rem;
+  bottom: 7.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
 }
 
 .sc-scroll-hint span {
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   letter-spacing: 0.25em;
-  text-transform: uppercase;
   color: var(--muted);
   font-weight: 300;
 }

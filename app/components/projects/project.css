@@ -8,25 +8,40 @@
 }
 
 .project-grid-background {
-  position: absolute;
+   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 0;
-  background-image: linear-gradient(to right, rgba(200, 220, 250, 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(200, 220, 250, 0.2) 1px, transparent 1px);
-  background-size: 50px 50px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000000 50%,
-    transparent 70%
-  );
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000000 60%,
-    transparent 80%
-  );
+  background-image:
+    linear-gradient(to right, rgba(168, 208, 245, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 208, 245, 0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.project-heading-wrapper {
+  background: #0977E0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-heading{
+  position: relative;
+  z-index: 10;
+  margin-top: -10vw;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 11vw, 8rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+
+}
+
+.project-heading h1 {
+  font-size: clamp(3rem, 6vw, 8rem);
 }
 
 img {
@@ -37,16 +52,17 @@ img {
 
 h1 {
   text-transform: uppercase;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: var(--font-bricolage), sans-serif;
   font-size: 3rem;
   font-weight: 800;
   line-height: 1;
 }
 
 p {
-  text-transform: uppercase;
-  font-family: "DM Mono", monospace;
-  font-size: 0.9rem;
+  text-transform: lowercase;
+  font-family: var(--font-bricolage), monospace;
+  font-size: 1.6rem;
+  padding-top: 2vw;
 }
 
 section {
@@ -64,7 +80,7 @@ section {
 }
 
 .sticky-cards {
-  background: radial-gradient(circle at center, #99d1ff 5%, #008cff 100%);
+  background: #0977E0;
   perspective: 850px;
 }
 
@@ -118,20 +134,20 @@ section {
 }
 
 .card#card-1 {
-  background-color: #f98b64;
-  background: linear-gradient(180deg, #dcb694 0%, #f98b64 50%, #f96b52 100%);
+  background-color: #000763;
+  background: linear-gradient(180deg, #000763 0%, #04a2fd 100%);
   z-index: 5;
 }
 
 .card#card-2 {
-  background-color: #072988;
-  background: linear-gradient(180deg, #04105f 0%, #072988 50%, #0a42b1 100%);
+  background-color: #04a2fd;
+  background: linear-gradient(145deg, #000763 0%, #04a2fd 50%, #000763 100%);
   z-index: 4;
 }
 
 .card#card-3 {
-  background-color: #dcb694;
-  background: linear-gradient(180deg, #8ab0e8 0%, #dcb694 50%, #f98b52 100%);
+  background-color: #000763;
+  background: linear-gradient(180deg, #04a2fd 0%, #012faf 50%, #000763 100%);
   z-index: 3;
 }
 
