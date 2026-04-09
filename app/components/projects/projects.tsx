@@ -173,21 +173,9 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
                 {data.description.split(" ").map((word, i) => (
                   <motion.span
                     key={i}
-                    initial={{
-                      filter: "blur(10px)",
-                      opacity: 0,
-                      y: 5,
-                    }}
-                    animate={{
-                      filter: "blur(0px)",
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    transition={{
-                      duration: 0.22,
-                      ease: "easeInOut",
-                      delay: 0.025 * i,
-                    }}
+                    initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
+                    animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                    transition={{ duration: 0.22, ease: "easeInOut", delay: 0.025 * i }}
                     style={{ display: "inline-block" }}
                   >
                     {word}&nbsp;
@@ -211,16 +199,10 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
                 variants={{
                   hidden: { opacity: 0, scale: 0.5, y: 10 },
                   visible: (i) => ({
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
+                    opacity: 1, scale: 1, y: 0,
                     transition: { duration: 0.4, delay: 0.2 + i * 0.1, type: "spring", stiffness: 120 }
                   }),
-                  hover: {
-                    scale: 1.2,
-                    rotate: 5,
-                    transition: { duration: 0.2 }
-                  }
+                  hover: { scale: 1.2, rotate: 5, transition: { duration: 0.2 } }
                 }}
                 className="cursor-pointer"
               >
@@ -250,7 +232,8 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
 
 export default function Projects() {
   const stickyRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // ← refs now point at the wrappers, not the inner cards
+  const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -260,14 +243,14 @@ export default function Projects() {
     gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
-    const cards = cardRefs.current;
-    const totalCards = cards.length;
+    const wrappers = wrapperRefs.current;
+    const totalCards = wrappers.length;
     const segmentSize = 1 / totalCards;
     const cardYOffset = 5;
     const cardScaleStep = 0.075;
 
-    cards.forEach((card, i) => {
-      gsap.set(card, {
+    wrappers.forEach((wrapper, i) => {
+      gsap.set(wrapper, {
         xPercent: -50,
         yPercent: -50 + i * cardYOffset,
         scale: 1 - i * cardScaleStep,
@@ -277,7 +260,7 @@ export default function Projects() {
     const trigger = ScrollTrigger.create({
       trigger: stickyRef.current,
       start: "top top",
-      end: `+=${window.innerHeight * cardData.length}px`,
+      end: `+=${window.innerHeight * (cardData.length - 1)}px`,
       pin: true,
       pinSpacing: true,
       scrub: 1,
@@ -290,18 +273,18 @@ export default function Projects() {
         const segProgress =
           (progress - activeIndex * segmentSize) / segmentSize;
 
-        cards.forEach((card, i) => {
+        wrappers.forEach((wrapper, i) => {
           if (i < activeIndex) {
-            gsap.set(card, { yPercent: -250, rotationX: 35 });
+            gsap.set(wrapper, { yPercent: -250, rotationX: 35 });
           } else if (i === activeIndex) {
-            gsap.set(card, {
+            gsap.set(wrapper, {
               yPercent: gsap.utils.interpolate(-50, -200, segProgress),
               rotationX: gsap.utils.interpolate(0, 35, segProgress),
               scale: 1,
             });
           } else {
             const behindIndex = i - activeIndex;
-            gsap.set(card, {
+            gsap.set(wrapper, {
               yPercent: -50 + (behindIndex - segProgress) * cardYOffset,
               rotationX: 0,
               scale: 1 - (behindIndex - segProgress) * cardScaleStep,
@@ -337,16 +320,22 @@ export default function Projects() {
             </TextScrollReveal>
           </div>
         </div>
+
         <section className="sticky-cards" ref={stickyRef} id="projects">
           <div className="project-grid-background" />
+          <div className="blob1"></div>
+
           {cardData.map((card, i) => (
+            // ← wrapper carries the border gradient + GSAP transform
             <div
               key={card.id}
-              id={card.id}
-              className="card"
-              ref={(el) => { cardRefs.current[i] = el; }}
+              className="card-wrapper"
+              ref={(el) => { wrapperRefs.current[i] = el; }}
             >
-              <CardContent data={card} />
+              {/* inner card carries only background + layout */}
+              <div id={card.id} className="card">
+                <CardContent data={card} />
+              </div>
             </div>
           ))}
         </section>

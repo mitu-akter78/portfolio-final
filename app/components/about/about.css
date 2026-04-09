@@ -7,7 +7,7 @@
   min-height: 100vh;
   width: 100%;
   position: relative;
-  background: #0977E0;
+  background: hsl(207, 100%, 48%);
   overflow: hidden;
 }
 
@@ -16,15 +16,13 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(to right, rgba(168, 208, 245, 0.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(168, 208, 245, 0.10) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: radial-gradient(circle, rgba(168, 208, 245, 0.35) 1px, transparent 1px);
+  background-size: 50px 50px;
 
   -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 100%,
+    ellipse 60% 60% at 50% 100%,
     #000 50%,
-    transparent 70%
+    transparent 60%
   );
   mask-image: radial-gradient(
     ellipse 70% 60% at 50% 100%,

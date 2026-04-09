@@ -16,10 +16,8 @@
   bottom: 0;
   left: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(to right, rgba(168, 208, 245, 0.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(168, 208, 245, 0.10) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: radial-gradient(circle, rgba(168, 208, 245, 0.35) 1px, transparent 1px);
+  background-size: 50px 50px;
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 50%, transparent 70%);
   mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 80%);
 }
@@ -30,6 +28,7 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  will-change: transform;
 }
 
 /* ── LAYER 1 · BRAND TEXT ── */
@@ -235,7 +234,7 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: #f5c060;
+  background: #ffffff;
   border-radius: 1px;
   transition: width 0.25s ease;
 }
