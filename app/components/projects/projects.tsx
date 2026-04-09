@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import { FaArrowLeft, FaArrowRight, FaReact } from "react-icons/fa";
 import { SiTailwindcss, SiTypescript, SiNextdotjs, SiFramer, SiNodedotjs, SiGraphql, SiVercel, SiPrisma, SiThreedotjs, SiWebgl, SiFirebase, SiStripe } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
@@ -59,7 +58,8 @@ function calculateGap(width: number) {
   return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth));
 }
 
-const CardContent = ({ data }: { data: typeof cardData[0] }) => {
+// ─── CHANGE 1: accept isActive prop ───────────────────────────────────────────
+const CardContent = ({ data, isActive }: { data: typeof cardData[0]; isActive: boolean }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoverPrev, setHoverPrev] = useState(false);
   const [hoverNext, setHoverNext] = useState(false);
@@ -81,14 +81,19 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // ─── CHANGE 2: only run autoplay when this card is the front card ───────────
   useEffect(() => {
+    if (!isActive) {
+      if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+      return;
+    }
     autoplayIntervalRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % imagesLength);
     }, 5000);
     return () => {
       if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
     };
-  }, [imagesLength]);
+  }, [isActive, imagesLength]);
 
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % imagesLength);
@@ -215,15 +220,28 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
 
       <div className="col relative flex flex-col justify-center p-0 md:p-4">
         <div className="relative w-full h-full perspective-[1000px]" ref={imageContainerRef}>
-          {data.images.map((src, index) => (
-            <img
-              key={src}
-              src={src}
-              alt={`${data.title} ${index + 1}`}
-              className="absolute w-full h-full object-cover rounded-xl md:rounded-2xl shadow-2xl"
-              style={getImageStyle(index)}
-            />
-          ))}
+          {data.images.map((src, index) => {
+            const isLeft = (activeIndex - 1 + imagesLength) % imagesLength === index;
+            const isRight = (activeIndex + 1) % imagesLength === index;
+            const isCurrent = index === activeIndex;
+
+            return (
+              <img
+                key={src}
+                src={src}
+                alt={`${data.title} ${index + 1}`}
+                className="absolute w-full h-full object-cover rounded-xl md:rounded-2xl shadow-2xl"
+                style={{
+                  ...getImageStyle(index),
+                  cursor: isLeft || isRight ? "pointer" : "default",
+                }}
+                onClick={() => {
+                  if (isLeft) handlePrev();
+                  if (isRight) handleNext();
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </>
@@ -232,17 +250,12 @@ const CardContent = ({ data }: { data: typeof cardData[0] }) => {
 
 export default function Projects() {
   const stickyRef = useRef<HTMLElement>(null);
-  // ← refs now point at the wrappers, not the inner cards
   const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // ─── CHANGE 3: track which card is currently on top ───────────────────────
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+
   useEffect(() => {
-    const lenis = new Lenis();
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const tickerCallback = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(tickerCallback);
-    gsap.ticker.lagSmoothing(0);
-
     const wrappers = wrapperRefs.current;
     const totalCards = wrappers.length;
     const segmentSize = 1 / totalCards;
@@ -273,6 +286,9 @@ export default function Projects() {
         const segProgress =
           (progress - activeIndex * segmentSize) / segmentSize;
 
+        // ─── CHANGE 4: update activeCardIndex so the right card gets isActive ──
+        setActiveCardIndex(activeIndex);
+
         wrappers.forEach((wrapper, i) => {
           if (i < activeIndex) {
             gsap.set(wrapper, { yPercent: -250, rotationX: 35 });
@@ -296,8 +312,6 @@ export default function Projects() {
 
     return () => {
       trigger.kill();
-      gsap.ticker.remove(tickerCallback);
-      lenis.destroy();
     };
   }, []);
 
@@ -313,10 +327,10 @@ export default function Projects() {
               animation="bottom"
               splitBy="chars"
               triggerStart="top 85%"
-              triggerEnd="bottom 30%"
+              triggerEnd="bottom 20%"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              my projects
+              selected Work
             </TextScrollReveal>
           </div>
         </div>
@@ -326,15 +340,14 @@ export default function Projects() {
           <div className="blob1"></div>
 
           {cardData.map((card, i) => (
-            // ← wrapper carries the border gradient + GSAP transform
             <div
               key={card.id}
               className="card-wrapper"
               ref={(el) => { wrapperRefs.current[i] = el; }}
             >
-              {/* inner card carries only background + layout */}
               <div id={card.id} className="card">
-                <CardContent data={card} />
+                {/* ─── CHANGE 5: pass isActive down to each CardContent ─────── */}
+                <CardContent data={card} isActive={i === activeCardIndex} />
               </div>
             </div>
           ))}
