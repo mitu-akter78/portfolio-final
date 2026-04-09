@@ -41,7 +41,7 @@ const NavLink = ({
         <TextStaggerHoverHidden
           animation={animationIn}
           className="origin-bottom"
-          charClassName="bg-linear-to-t from-[#FE7A0F] to-[#ffffff] bg-clip-text text-transparent"
+          charClassName="bg-linear-to-t from-[#001259] to-[#1443ff] bg-clip-text text-transparent"
           staggerDirection={staggerDirection}
         >
           {label}

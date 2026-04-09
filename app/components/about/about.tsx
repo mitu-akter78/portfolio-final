@@ -94,7 +94,7 @@ export default function About() {
     <main className="about-grid-wrapper" id="about">
       <div className="about-grid-background" />
       <div
-        className={`about-content w-full text-[#ffffff] overflow-hidden`}
+        className={`about-content text-[#ffffff] overflow-hidden`}
       >
         <div className="about-inner">
 
@@ -105,7 +105,6 @@ export default function About() {
               splitBy="chars"
               triggerStart="top 85%"
               triggerEnd="bottom 40%"
-              style={{ fontFamily: "var(--font-outfit)" }}
             >
               ABOUT ME
             </TextScrollReveal>
@@ -114,14 +113,10 @@ export default function About() {
           <p
             ref={textRef}
             className="about-text"
-            style={{ fontFamily: "var(--font-outfit)" }}
           >
-            Hi, I'm Sadia — A Creative Developer & Designer.
-            
-            I Build Fast, Scalable, And User-Focused Web Applications That Turn Complex Ideas Into Clear, Intuitive Experiences.
-           
-            I Focus On Creating Well-Structured Systems That Are Reliable, Easy To Maintain, And Built To Evolve Over Time.
-            
+            Hi, I'm Sadia — A Creative Developer & Designer. 
+            I Build Fast, Scalable, And User-Focused Web Applications That Turn Complex Ideas Into Clear, Intuitive Experiences. 
+            I Focus On Creating Well-Structured Systems That Are Reliable, Easy To Maintain, And Built To Evolve Over Time. 
             I Work With Modern Web Technologies And AI-Assisted Workflows To Deliver Efficient, High-Quality Solutions.
           </p>
 

@@ -112,23 +112,20 @@ export default function ScrollCards() {
       
       <div className="skills-grid-background" />
       
-      <div className="flex flex-col items-center justify-center min-h-screen text-center px-6">
+      <div className="flex flex-col items-center justify-center px-6">
         {/* ── Hero ──────────────────────────────────────────── */}
         <section className="sc-hero">
           <TextScrollReveal
             as="h1"
             animation="bottom"
             splitBy="chars"
-            triggerStart="top 85%"
+            triggerStart="top 95%"
             triggerEnd="bottom 30%"
+            className="sc-hero-text text-white flex flex-col items-start justify-start text-left"
             style={{ fontFamily: "var(--font-bricolage)" }}
           >
             my skills
           </TextScrollReveal>
-          <div className="sc-scroll-hint" aria-hidden="true">
-            <div className="sc-scroll-line" />
-            <span>Scroll</span>
-          </div>
         </section>
 
         {/* ── Cards ─────────────────────────────────────────── */}
