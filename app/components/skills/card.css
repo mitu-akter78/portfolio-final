@@ -22,11 +22,11 @@
 
 .sc-root {
   position: relative;
-  --bg:    hsl(207, 100%, 48%);
-  --fg:    #ffffff;
+  --bg: hsl(207, 100%, 48%);
+  --fg: #ffffff;
   --muted: #fadbb9;
   --font-serif: "Cormorant Garamond", serif;
-  --font-sans:  "var(--font-bricolage)", sans-serif;
+  --font-sans: "var(--font-bricolage)", sans-serif;
 
   background: var(--bg);
   color: var(--fg);
@@ -50,15 +50,15 @@
 
 .sc-hero h1 {
   font-family: var(--font-bricolage);
-  font-size: clamp(3rem, 8vw, 8rem);
+  font-size: clamp(3rem, 10vw, 8rem);
   font-weight: 600;
   text-align: left;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  padding-left: 3rem;
+  padding: 0 0 1rem 3rem;
   text-shadow:
-    0 2px  8px rgba(0,  19, 100, 0.35),
-    0 8px 40px rgba(0,  10,  80, 0.28);
+    0 2px 8px rgba(0, 19, 100, 0.35),
+    0 8px 40px rgba(0, 10, 80, 0.28);
 }
 
 /* ─── Cards Section ─────────────────────────────────────── */
@@ -75,8 +75,8 @@
 /* ─── Card ───────────────────────────────────────────────── */
 .sc-card {
   position: absolute;
-  width: clamp(200px, 18vw, 270px);
-  height: clamp(300px, 27vw, 405px);
+  width: clamp(240px, 22vw, 320px);
+  height: clamp(360px, 33vw, 480px);
   perspective: 1400px;
   will-change: transform;
 }
@@ -92,7 +92,7 @@
   box-shadow: -10px 10px 30px var(--accent);
 }
 
-.sc-front{
+.sc-front {
   padding: 14px 25px;
   border-radius: 14px;
   color: #fff;
@@ -108,12 +108,10 @@
   left: 0;
   top: 0;
   border-radius: 14px;
-  background: radial-gradient(
-    circle 60px at 0% 100%,
-    #00e1ff1a,
-    #0000ff11,
-    transparent
-  );
+  background: radial-gradient(circle 60px at 0% 100%,
+      #00e1ff1a,
+      #0000ff11,
+      transparent);
   position: absolute;
 }
 
@@ -125,15 +123,15 @@
   border-radius: 16px;
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.6),
-    0 8px 20px  rgba(0, 0, 0, 0.4),
+    0 8px 20px rgba(0, 0, 0, 0.4),
     0px -16px 24px 0px rgba(255, 255, 255, 0.25) inset;
   position: relative;
-} 
+}
 
 .sc-card-inner::before {
   content: "";
   position: absolute;
-  inset: -4px;               
+  inset: -4px;
   border-radius: 18px;
   background: radial-gradient(circle 80px at 80% -10%, #ffffff, var(--accent));
   z-index: -1;
@@ -153,7 +151,7 @@
 .sc-front {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 1.6rem 1.4rem;
 }
 
@@ -164,45 +162,32 @@
   overflow: hidden;
 }
 
-.sc-art svg {
-  width: 100%;
-  height: 100%;
-}
-
-.sc-num {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.4rem;
-  font-family: var(--font-serif);
-  font-size: 0.8rem;
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  opacity: 0.4;
-  z-index: 1;
-}
-
 .sc-label {
   position: relative;
   z-index: 1;
 }
 
 .sc-label h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 2.5vw, 2.6rem);
-  font-weight: 300;
-  font-style: italic;
+  font-family: var(--font-bricolage);
+  font-size: clamp(1.4rem, 3.5vw, 4.6rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 700;
   line-height: 1;
   color: #fff;
 }
 
 .sc-label p {
-  font-size: 0.6rem;
+  text-align: center;
+  font-size: clamp(0.6rem, 1.3vw, 2.6rem);
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  opacity: 0.45;
+  opacity: 0.95;
   color: #fff;
-  margin-top: 4px;
-  font-weight: 300;
+  margin-top: 2px;
+  font-weight: 400;
 }
 
 /* ── Back face ── */
@@ -214,30 +199,54 @@
   background:
     radial-gradient(at 88% 40%, var(--bg) 0px, transparent 85%),
     radial-gradient(at 14% 26%, var(--bg) 0px, transparent 85%),
-    radial-gradient(at 0%  64%, color-mix(in srgb, var(--accent) 40%, #000) 0px, transparent 85%),
+    radial-gradient(at 0% 64%, color-mix(in srgb, var(--accent) 40%, #000) 0px, transparent 85%),
     radial-gradient(at 41% 94%, color-mix(in srgb, var(--accent) 55%, #000) 0px, transparent 85%),
     radial-gradient(at 100% 99%, color-mix(in srgb, var(--accent) 20%, #000) 0px, transparent 85%);
 }
 
-.sc-back-num {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  opacity: 0.4;
-  margin-bottom: 4px;
+/* ── Back header: icon + num/title stacked ── */
+.sc-back-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 0.85rem;
 }
 
+.sc-back-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 10px;
+  opacity: 1;
+}
+
+
 .sc-back-title {
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-weight: 300;
-  font-style: italic;
-  margin-bottom: 0.9rem;
+  font-family: var(--font-bricolage);
+  font-size: clamp(0.7rem, 2vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.1;
 }
 
 .sc-back-rule {
-  height: 1px;
-  margin-bottom: 0.9rem;
+  height: 2px;
+  margin-bottom: 0.75rem;
   opacity: 0.2;
+}
+
+/* Subtitle description text */
+.sc-back-subtitle {
+  font-size: clamp(0.5rem, 0.9vw, 1.6rem);
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.65;
+  margin-bottom: 0.85rem;
+  letter-spacing: 0.01em;
+}
+
+.sc-card--uiux .sc-back-title {
+  margin-top: 12px;
 }
 
 .sc-back-list {
@@ -246,14 +255,14 @@
 }
 
 .sc-back-list li {
-  font-size: 0.78rem;
+  font-size: clamp(0.5rem, 1.1vw, 1.6rem);
   font-weight: 300;
   letter-spacing: 0.03em;
-  padding: 0.45rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   line-height: 1.3;
 }
 
@@ -275,6 +284,21 @@
   opacity: 0.28;
 }
 
+/* ── Skill item icon ── */
+.sc-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.75;
+}
+
+.sc-item-icon svg {
+  width: 100%;
+  height: 100%;
+}
 
 /* ─── Grain overlay ─────────────────────────────────────── */
 .sc-root::after {
@@ -291,40 +315,105 @@
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .sc-root {
-    min-height: unset; 
+    min-height: unset;
     height: auto;
-    
   }
 
   .sc-hero {
-    height: 35vh;          /* was 100vh — huge gap gone */
+    height: 35vh;
     min-height: unset;
-    align-items: center;   /* centre horizontally */
+    align-items: center;
     justify-content: flex-end;
     padding-bottom: 2rem;
   }
+
   .sc-hero h1 {
-    padding-left: 0;       /* remove left offset */
+    padding-left: 0;
     text-align: center;
-    font-size: clamp(2.8rem, 12vw, 5rem);
   }
 
   .sc-cards {
-    height: 80vh;          /* reduced from 100vh */
-    
+    height: 70vh;
   }
+
   .sc-card {
-    width: clamp(140px, 36vw, 200px);
-    height: clamp(210px, 54vw, 300px);
+    width: clamp(160px, 40vw, 220px);
+    height: clamp(250px, 60vw, 330px);
   }
+
   .sc-hero-text {
     flex-direction: row;
-    font-size: 4rem;
     flex: unset;
     width: 100%;
     align-items: center;
     justify-content: center;
     text-align: center;
-    column-gap: 0.2em
+    column-gap: 0.1em;
+  }
+
+  .sc-item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    opacity: 0.75;
+  }
+
+  .sc-item-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sc-back-icon svg {
+    margin-top: -6px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .sc-back-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .sc-back-list li {
+    padding: 0.3rem 0.5rem;
+    border-bottom: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .sc-back-subtitle {
+    display: none;
+  }
+
+  .sc-card:nth-child(1) .sc-back {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .sc-card:nth-child(3) .sc-back {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  /* fix list items alignment too */
+  .sc-card:nth-child(1) .sc-back-list {
+    justify-content: flex-start;
+  }
+
+  .sc-card:nth-child(3) .sc-back-list {
+    justify-content: flex-end;
+  }
+
+  .sc-card:nth-child(1) .sc-back,
+  .sc-card:nth-child(3) .sc-back {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }

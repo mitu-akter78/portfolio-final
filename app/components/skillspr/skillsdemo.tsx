@@ -5,7 +5,7 @@ import type Lenis from 'lenis'
 import ImageReveal from "./skills";
 import "./skills.css";
 
-export default function Skillsdemo() {
+export default function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)

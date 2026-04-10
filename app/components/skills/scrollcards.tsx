@@ -4,36 +4,40 @@ import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
-import { Outfit } from "next/font/google";
 import Card from "./card"
 import { CARDS, SPREAD } from "./cards.data"
 import "./card.css"
-import { TextScrollReveal } from "../ui/TextScrollReveal";
+import { TextScrollReveal } from "../ui/TextScrollReveal"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const TOTAL_SCROLL_MULTIPLIER = 3.5
+
+const MOBILE_SPREAD = [
+  { x: "-28vw", y: "2vh", rot: -10 },
+  { x: "0vw", y: "0", rot: 0 },
+  { x: "28vw", y: "2vh", rot: 10 },
+]
 
 export default function ScrollCards() {
   const containerRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const cardRefs = useRef<HTMLDivElement[]>([])
 
-  /* ── Lenis smooth scroll ──────────────────────────────── */
   useEffect(() => {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill())
     }
   }, [])
 
-  /* ── GSAP scroll animations ───────────────────────────── */
   useGSAP(
     () => {
       const cards = cardRefs.current
       const total = () => window.innerHeight * TOTAL_SCROLL_MULTIPLIER
       const spread = () => window.innerHeight * 1.1
+      const isMobile = () => window.innerWidth < 768
+      const getSpread = () => isMobile() ? MOBILE_SPREAD : SPREAD
 
-      // Pin the cards section
       ScrollTrigger.create({
         trigger: sectionRef.current!,
         start: "top top",
@@ -44,14 +48,13 @@ export default function ScrollCards() {
 
       // Phase 1 — fan into arc
       cards.forEach((card, i) => {
-        const s = SPREAD[i]
         gsap.fromTo(
           card,
           { x: 0, y: 0, rotation: 0 },
           {
-            x: s.x,
-            y: s.y,
-            rotation: s.rot,
+            x: () => getSpread()[i].x,
+            y: () => getSpread()[i].y,
+            rotation: () => getSpread()[i].rot,
             ease: "power3.inOut",
             scrollTrigger: {
               trigger: sectionRef.current!,
@@ -69,7 +72,6 @@ export default function ScrollCards() {
         const stagger = i * 0.055
         const t0 = 0.30 + stagger
         const t1 = Math.min(0.68 + stagger, 0.94)
-        const targetRot = SPREAD[i].rot
 
         ScrollTrigger.create({
           trigger: sectionRef.current!,
@@ -80,11 +82,9 @@ export default function ScrollCards() {
             const p = self.progress
             if (p < t0 || p > t1) return
             const raw = (p - t0) / (t1 - t0)
-            // ease-in-out cubic
             const e = raw < 0.5
               ? 4 * raw * raw * raw
               : 1 - Math.pow(-2 * raw + 2, 3) / 2
-
             if (!inner) return
             gsap.set(inner, { rotateY: 180 * e })
           },
@@ -94,11 +94,10 @@ export default function ScrollCards() {
     { scope: containerRef }
   )
 
-  /* ── Cleanup on unmount ───────────────────────────────── */
   useEffect(() => {
     const handleResize = () => {
       clearTimeout((handleResize as any)._t)
-        ; (handleResize as any)._t = setTimeout(() => ScrollTrigger.refresh(), 250)
+      ;(handleResize as any)._t = setTimeout(() => ScrollTrigger.refresh(), 250)
     }
     window.addEventListener("resize", handleResize)
     return () => {
@@ -109,11 +108,8 @@ export default function ScrollCards() {
 
   return (
     <div className="sc-root" ref={containerRef} id="skills">
-      
       <div className="skills-grid-background" />
-      
       <div className="flex flex-col items-center justify-center px-6">
-        {/* ── Hero ──────────────────────────────────────────── */}
         <section className="sc-hero">
           <TextScrollReveal
             as="h1"
@@ -128,13 +124,13 @@ export default function ScrollCards() {
           </TextScrollReveal>
         </section>
 
-        {/* ── Cards ─────────────────────────────────────────── */}
         <section className="sc-cards" ref={sectionRef}>
           {CARDS.map((card, i) => (
             <Card
               key={card.num}
               data={card}
-              zIndex={CARDS.length - i}
+              zIndex={[1, 3, 2][i]}
+              className={i === 2 ? "sc-card--uiux" : ""}
               style={{ '--accent': card.accent, '--bg': card.bg } as any}
               ref={(el) => {
                 if (el) cardRefs.current[i] = el

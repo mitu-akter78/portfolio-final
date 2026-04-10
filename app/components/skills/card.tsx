@@ -2,6 +2,11 @@
 
 import { forwardRef, CSSProperties } from "react"
 
+export interface SkillItem {
+  label: string
+  icon: string
+}
+
 export interface CardData {
   title: string
   sub: string
@@ -10,7 +15,9 @@ export interface CardData {
   accent: string
   textColor: string
   backTitle: string
-  items: string[]
+  backSubtitle: string
+  icon: string
+  items: SkillItem[]
   art: string
 }
 
@@ -18,31 +25,30 @@ interface CardProps {
   data: CardData
   zIndex: number
   style?: CSSProperties
+  className?: string
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ data, zIndex, style }, ref) => {
+  ({ data, zIndex, style, className }, ref) => {
     return (
-      <div className="sc-card" ref={ref} style={{ ...style, zIndex }}>
+      <div className={`sc-card ${className ?? ""}`} ref={ref} style={{ ...style, zIndex }}>
         
         <div className="sc-card-inner">
         
+          {/* ── Front face ── */}
           <div
             className="sc-face sc-front"
             style={{ background: data.bg, color: data.textColor }}
           >
             <div className="blob1"></div>
-            <div
-              className="sc-art"
-              dangerouslySetInnerHTML={{ __html: data.art }}
-            />
-            <span className="sc-num">{data.num}</span>
+            <div className="sc-art" style={{ background: data.art }} />
             <div className="sc-label">
               <h2>{data.title}</h2>
               <p>{data.sub}</p>
             </div>
           </div>
 
+          {/* ── Back face ── */}
           <div
             className="sc-face sc-back"
             style={{
@@ -51,15 +57,33 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
               border: `1px solid ${data.accent}28`,
             }}
           >
-            
-            <p className="sc-back-num">{data.num}</p>
-            <h3 className="sc-back-title">{data.backTitle}</h3>
+            <div className="sc-back-header">
+              <span
+                className="sc-back-icon"
+                style={{ color: data.accent }}
+                dangerouslySetInnerHTML={{ __html: data.icon }}
+              />
+              <div>
+                <h3 className="sc-back-title">{data.backTitle}</h3>
+              </div>
+            </div>
+
             <div className="sc-back-rule" style={{ background: data.accent }} />
+
+            <p className="sc-back-subtitle">{data.backSubtitle}</p>
+
             <ul className="sc-back-list">
               {data.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.label}>
+                  <span
+                    className="sc-item-icon"
+                    dangerouslySetInnerHTML={{ __html: item.icon }}
+                  />
+                  {item.label}
+                </li>
               ))}
             </ul>
+
             <p className="sc-back-foot" style={{ color: `${data.accent}88` }}>
               {data.sub} — {data.num}
             </p>
